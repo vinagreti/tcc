@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node-dev ./src/index.ts",
+    "e2e": "npx cypress run"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cypress": "^13.14.2",
+    "express": "^4.19.2",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@types/express": "^4.17.21",
+    "eslint": "^9.9.0",
+    "globals": "^15.9.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript-eslint": "^8.2.0"
+  }
+}

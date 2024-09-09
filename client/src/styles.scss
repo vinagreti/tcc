@@ -1,0 +1,73 @@
+/* You can add global styles to this file, and also import other style files */
+body,
+html {
+  width: 100dvw;
+  height: 100dvh;
+  overflow: auto;
+  padding: 0px;
+  margin: 0px;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+a {
+  color: inherit;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.gap-4 {
+  gap: 4px;
+}
+
+.gap-16 {
+  gap: 4px;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.bg-primary {
+  background-color: black;
+  color: white;
+}
+
+.bg-secondary {
+  background-color: pink;
+  color: white;
+}
+
+.bg-action {
+  background-color: white;
+  color: black;
+}
+
+.p-4 {
+  padding: 4px;
+}
+
+.p-16 {
+  padding: 16px;
+}

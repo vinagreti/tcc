@@ -1,0 +1,16 @@
+<div class="h-full flex">
+  <div class="flex-col gap-4">
+    <div>Test section</div>
+    <div>
+      <button (click)="runTest()">run</button>
+    </div>
+  </div>
+
+  <div class="flex-col gap-4">
+    <div>Result</div>
+
+    <div>
+      {{ responseBody$ | async }}
+    </div>
+  </div>
+</div>
