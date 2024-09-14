@@ -1,9 +1,8 @@
 import { testParser } from "./../../helpers/test-parser";
 import express from "express";
-
-const fs = require("node:fs/promises");
-const exec = require("child_process").exec;
-const cors = require("cors");
+import * as fs from "node:fs/promises";
+import { spawn } from "child_process";
+import cors from "cors";
 
 const app = express();
 const port = 3000;
@@ -24,9 +23,8 @@ app.post("/run", async (req: express.Request, res: express.Response) => {
   const testFile = testParser(body);
   await clearE2eFolder();
   await writeFile("test-write", testFile);
-  exec("npm run e2e", (error: unknown, stdout: unknown, stderr: unknown) => {
-    res.send(stdout);
-  });
+  const log = await runSpawn("e2e");
+  res.send(log);
 });
 
 app.listen(port, hostname, () => {
@@ -48,14 +46,44 @@ async function clearE2eFolder() {
   const directory = `${__dirname}/../cypress/e2e`;
 
   try {
-    const folderExists = await fs.access(directory);
     await fs.rmdir(directory, {
       recursive: true,
-      force: true,
     });
-  } catch (error) {}
+  } catch {}
 
   await fs.mkdir(directory);
 
   return true;
+}
+
+async function runSpawn(
+  script: string,
+  forceColor: boolean = false
+): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const npm = spawn("npm", ["run", script, "--color=always"], {
+      stdio: "pipe",
+      shell: true,
+      env: { ...process.env, FORCE_COLOR: forceColor } as any,
+    });
+
+    let stdout = "";
+    let stderr = "";
+
+    npm.stdout.on("data", (data) => {
+      stdout += data.toString();
+    });
+
+    npm.stderr.on("data", (data) => {
+      stderr += data.toString();
+    });
+
+    npm.on("close", (code) => {
+      if (code !== 0) {
+        reject(new Error(`npm script exited with code ${code}`));
+      } else {
+        resolve(stdout);
+      }
+    });
+  });
 }

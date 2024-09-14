@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-run-test-page',
@@ -10,6 +11,8 @@ import { ReplaySubject } from 'rxjs';
   styleUrl: './run-test-page.component.scss',
 })
 export class RunTestPageComponent {
+  private sanitized = inject(DomSanitizer);
+
   responseBody$ = new ReplaySubject();
 
   async runTest() {
@@ -52,7 +55,7 @@ export class RunTestPageComponent {
 
     const body = JSON.stringify(testSet);
 
-    const request = await fetch('http://localhost:3000/parse', {
+    const request = await fetch('http://localhost:3000/run', {
       method: 'post',
       body,
       headers: {
@@ -60,7 +63,9 @@ export class RunTestPageComponent {
         'Content-Type': 'application/json',
       },
     });
+
     const responseBody = await request.text();
+
     this.responseBody$.next(responseBody);
   }
 }

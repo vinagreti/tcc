@@ -35,6 +35,7 @@ a {
 
 .grow {
   flex-grow: 1;
+  overflow-y: auto;
 }
 
 .gap-4 {
@@ -55,7 +56,7 @@ a {
 }
 
 .bg-secondary {
-  background-color: pink;
+  background-color: black;
   color: white;
 }
 
@@ -68,6 +69,19 @@ a {
   padding: 4px;
 }
 
+.p-8 {
+  padding: 8px;
+}
+
 .p-16 {
   padding: 16px;
+}
+
+code {
+  white-space: pre-wrap;
+  text-wrap: nowrap;
+}
+
+.border {
+  border: 1px solid black;
 }
