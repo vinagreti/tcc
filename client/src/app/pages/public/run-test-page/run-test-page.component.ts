@@ -9,8 +9,8 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { TestsetFormComponent } from '../../../components/testset-form/testset-form/testset-form.component';
 
 const testSet: TestSet = {
-  name: 'google test',
-  description: 'test google home page',
+  name: 'Cypress Kitchen Sink Page',
+  description: 'This is a demo test',
   flows: [
     {
       itShould: 'have google title',
@@ -55,6 +55,8 @@ const testSet: TestSet = {
 export class RunTestPageComponent {
   responseBody$ = new ReplaySubject();
 
+  running$ = new ReplaySubject<boolean>();
+
   testSet$ = new BehaviorSubject<TestSet>({
     name: '',
     description: '',
@@ -66,6 +68,7 @@ export class RunTestPageComponent {
   }
 
   async runTest(testSet: TestSet) {
+    this.running$.next(true);
     const body = JSON.stringify(testSet);
 
     const request = await fetch('http://localhost:3000/run', {
@@ -80,5 +83,6 @@ export class RunTestPageComponent {
     const responseBody = await request.text();
 
     this.responseBody$.next(responseBody);
+    this.running$.next(false);
   }
 }

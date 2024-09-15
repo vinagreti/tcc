@@ -1,8 +1,12 @@
 <div class="h-full flex">
   <div class="border flex-col gap-4 p-8 flex-same-size grow">
-    <div>Test section</div>
-    <div *ngIf="testSet$ | async as testSet">
-      <button (click)="runTest(testSet)">run</button>
+    <div class="flex space-between">
+      <div>Test section</div>
+      <div *ngIf="testSet$ | async as testSet">
+        <button (click)="runTest(testSet)" [disabled]="running$ | async">
+          run
+        </button>
+      </div>
     </div>
 
     <div *ngIf="testSet$ | async as testSet">
@@ -11,7 +15,10 @@
   </div>
 
   <div class="border flex-col gap-4 p-8 flex-same-size grow">
-    <div class="">Result</div>
+    <div class="">
+      @switch((running$ | async)) { @case (true) { Running tests. Please, wait.
+      } @case (false) { Result } }
+    </div>
 
     <code class="pre-line">
       {{ responseBody$ | async }}

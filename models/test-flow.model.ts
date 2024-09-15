@@ -5,6 +5,7 @@ export enum STEP_TYPE {
 
 export enum COMPARISON_TYPE {
   "have.text" = "have.text",
+  "be.empty" = "be.empty",
 }
 
 export type TestStepBaseProps = {

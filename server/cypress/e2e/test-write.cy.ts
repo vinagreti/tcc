@@ -1,4 +1,4 @@
-describe("google test", () => {
+describe("Cypress Kitchen Sink Page", () => {
 
   it("should have google title", () => {
     cy.visit("https://example.cypress.io/");

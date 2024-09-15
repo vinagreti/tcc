@@ -1,12 +1,19 @@
 <div class="flex gap-4">
   <div>
-    <input type="text" name="description" [(ngModel)]="step.type" />
-  </div>
-  <div>
     <input type="text" name="description" [(ngModel)]="step.target" />
   </div>
   <div>
-    <input type="text" name="description" [(ngModel)]="step.comparison" />
+    {{ step.type }}
+  </div>
+  <div>
+    <select name="comparison" [(ngModel)]="step.comparison">
+      <option
+        *ngFor="let comparisonType of comparisonTypes"
+        [value]="comparisonType"
+      >
+        {{ comparisonType }}
+      </option>
+    </select>
   </div>
   <div>
     <input type="text" name="description" [(ngModel)]="step.value" />

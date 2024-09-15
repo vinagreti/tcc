@@ -33,6 +33,10 @@ a {
   flex-direction: column;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
 .grow {
   flex-grow: 1;
   overflow-y: auto;
@@ -96,4 +100,11 @@ code {
 
 .flex-same-size {
   flex-basis: 100%;
+}
+
+button {
+  background-color: darkgreen;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
 }
