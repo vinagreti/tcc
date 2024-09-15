@@ -1,0 +1,12 @@
+<div class="flex-col gap-4 h-full">
+  <div>
+    <input type="text" name="name" [(ngModel)]="testSet.name" />
+  </div>
+  <div>
+    <input type="text" name="description" [(ngModel)]="testSet.description" />
+  </div>
+
+  <div class="grow flex-col gap-4 pl-8">
+    <app-testset-form-flows [flows]="testSet.flows"></app-testset-form-flows>
+  </div>
+</div>

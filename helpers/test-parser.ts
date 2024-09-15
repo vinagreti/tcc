@@ -3,6 +3,8 @@ import {
   TestFlow,
   TestSet,
   TestStep,
+  TestStepShould,
+  TestStepVisit,
 } from "./../models/test-flow.model";
 
 export const testParser = (testSet: TestSet) => {
@@ -44,10 +46,10 @@ function writeStep(testStep: TestStep) {
   }
 }
 
-function writeVisitStep(testStep: TestStep) {
+function writeVisitStep(testStep: TestStepVisit) {
   return `    cy.visit("${testStep.value}");`;
 }
 
-function writeShouldStep(testStep: TestStep) {
-  return `    cy.get("${testStep.target}").should("${testStep.should}", "${testStep.value}");`;
+function writeShouldStep(testStep: TestStepShould) {
+  return `    cy.get("${testStep.target}").should("${testStep.comparison}", "${testStep.value}");`;
 }

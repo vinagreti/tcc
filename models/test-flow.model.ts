@@ -3,16 +3,26 @@ export enum STEP_TYPE {
   VISIT = "visit",
 }
 
-export enum CHECK_TYPE {
+export enum COMPARISON_TYPE {
   "have.text" = "have.text",
 }
 
-export type TestStep = {
+export type TestStepBaseProps = {
   type: STEP_TYPE;
-  target: string;
-  should: CHECK_TYPE;
   value: string;
 };
+
+export type TestStepShould = TestStepBaseProps & {
+  type: STEP_TYPE.SHOULD;
+  target: string;
+  comparison: COMPARISON_TYPE;
+};
+
+export type TestStepVisit = TestStepBaseProps & {
+  type: STEP_TYPE.VISIT;
+};
+
+export type TestStep = TestStepShould | TestStepVisit;
 
 export type TestFlow = {
   itShould: string;

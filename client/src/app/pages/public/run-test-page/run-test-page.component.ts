@@ -1,58 +1,71 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
+import {
+  COMPARISON_TYPE,
+  STEP_TYPE,
+  TestSet,
+} from './../../../../../../models/test-flow.model';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { Component } from '@angular/core';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { TestsetFormComponent } from '../../../components/testset-form/testset-form/testset-form.component';
+
+const testSet: TestSet = {
+  name: 'google test',
+  description: 'test google home page',
+  flows: [
+    {
+      itShould: 'have google title',
+      steps: [
+        {
+          type: STEP_TYPE.VISIT,
+          value: 'https://example.cypress.io/',
+        },
+        {
+          type: STEP_TYPE.SHOULD,
+          target: 'h1',
+          comparison: COMPARISON_TYPE['have.text'],
+          value: 'Kitchen Sink',
+        },
+      ],
+    },
+    {
+      itShould: 'have google title',
+      steps: [
+        {
+          type: STEP_TYPE.VISIT,
+          value: 'https://example.cypress.io/',
+        },
+        {
+          type: STEP_TYPE.SHOULD,
+          target: 'h1',
+          comparison: COMPARISON_TYPE['have.text'],
+          value: 'Kitchen Sink',
+        },
+      ],
+    },
+  ],
+};
 
 @Component({
   selector: 'app-run-test-page',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, NgIf, TestsetFormComponent],
   templateUrl: './run-test-page.component.html',
   styleUrl: './run-test-page.component.scss',
 })
 export class RunTestPageComponent {
-  private sanitized = inject(DomSanitizer);
-
   responseBody$ = new ReplaySubject();
 
-  async runTest() {
-    const testSet = {
-      name: 'google test',
-      description: 'test google home page',
-      flows: [
-        {
-          itShould: 'have google title',
-          steps: [
-            {
-              type: 'visit',
-              value: 'https://example.cypress.io/',
-            },
-            {
-              type: 'should',
-              target: 'h1',
-              should: 'have.text',
-              value: 'Kitchen Sink',
-            },
-          ],
-        },
-        {
-          itShould: 'have google title',
-          steps: [
-            {
-              type: 'visit',
-              value: 'https://example.cypress.io/',
-            },
-            {
-              type: 'should',
-              target: 'h1',
-              should: 'have.text',
-              value: 'Kitchen Sink',
-            },
-          ],
-        },
-      ],
-    };
+  testSet$ = new BehaviorSubject<TestSet>({
+    name: '',
+    description: '',
+    flows: [],
+  });
 
+  constructor() {
+    this.testSet$.next(testSet);
+  }
+
+  async runTest(testSet: TestSet) {
     const body = JSON.stringify(testSet);
 
     const request = await fetch('http://localhost:3000/run', {

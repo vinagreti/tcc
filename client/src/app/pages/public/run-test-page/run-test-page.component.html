@@ -1,15 +1,19 @@
 <div class="h-full flex">
-  <div class="flex-col gap-4 border p-8">
+  <div class="border flex-col gap-4 p-8 flex-same-size grow">
     <div>Test section</div>
-    <div>
-      <button (click)="runTest()">run</button>
+    <div *ngIf="testSet$ | async as testSet">
+      <button (click)="runTest(testSet)">run</button>
+    </div>
+
+    <div *ngIf="testSet$ | async as testSet">
+      <app-testset-form [testSet]="testSet"></app-testset-form>
     </div>
   </div>
 
-  <div class="flex-col gap-4 grow border p-8">
-    <div>Result</div>
+  <div class="border flex-col gap-4 p-8 flex-same-size grow">
+    <div class="">Result</div>
 
-    <code class="pre-line grow">
+    <code class="pre-line">
       {{ responseBody$ | async }}
     </code>
   </div>
