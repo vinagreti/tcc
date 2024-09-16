@@ -1,6 +1,8 @@
 export enum STEP_TYPE {
   SHOULD = "should",
   VISIT = "visit",
+  CLICK = "click",
+  WRITE = "write",
 }
 
 export enum COMPARISON_TYPE {
@@ -31,7 +33,10 @@ export type TestFlow = {
 };
 
 export type TestSet = {
+  id: string;
   name: string;
   description: string;
   flows: TestFlow[];
 };
+
+export type TestsMap = { [key: string]: TestSet };

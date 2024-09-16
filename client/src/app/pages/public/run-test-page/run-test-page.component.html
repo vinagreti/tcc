@@ -10,7 +10,10 @@
     </div>
 
     <div *ngIf="testSet$ | async as testSet">
-      <app-testset-form [testSet]="testSet"></app-testset-form>
+      <app-testset-form
+        [testSet]="testSet"
+        (save)="onTestsetChange($event)"
+      ></app-testset-form>
     </div>
   </div>
 

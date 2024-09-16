@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   COMPARISON_TYPE,
   TestStepShould,
@@ -14,7 +14,14 @@ import { NgFor } from '@angular/common';
   styleUrl: './testset-form-step-should.component.scss',
 })
 export class TestsetFormStepShouldComponent {
+  comparisonTypes = Object.values(COMPARISON_TYPE);
+
   @Input({ required: true }) step!: TestStepShould;
 
-  comparisonTypes = Object.values(COMPARISON_TYPE);
+  @Output() save = new EventEmitter<TestStepShould>();
+
+  onSave() {
+    const updated: TestStepShould = { ...this.step };
+    this.save.emit(updated);
+  }
 }

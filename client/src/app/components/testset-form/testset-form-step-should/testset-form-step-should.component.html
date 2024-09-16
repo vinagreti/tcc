@@ -1,6 +1,6 @@
 <div class="flex gap-4">
   <div>
-    <input type="text" name="description" [(ngModel)]="step.target" />
+    <input required type="text" name="description" [(ngModel)]="step.target" />
   </div>
   <div>
     {{ step.type }}
@@ -16,6 +16,6 @@
     </select>
   </div>
   <div>
-    <input type="text" name="description" [(ngModel)]="step.value" />
+    <input required type="text" name="description" [(ngModel)]="step.value" />
   </div>
 </div>

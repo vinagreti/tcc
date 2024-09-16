@@ -1,70 +1,37 @@
-import {
-  COMPARISON_TYPE,
-  STEP_TYPE,
-  TestSet,
-} from './../../../../../../models/test-flow.model';
+import { TestSet } from './../../../../../../models/test-flow.model';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { Component, inject } from '@angular/core';
+import { filter, map, ReplaySubject, switchMap } from 'rxjs';
 import { TestsetFormComponent } from '../../../components/testset-form/testset-form/testset-form.component';
-
-const testSet: TestSet = {
-  name: 'Cypress Kitchen Sink Page',
-  description: 'This is a demo test',
-  flows: [
-    {
-      itShould: 'have google title',
-      steps: [
-        {
-          type: STEP_TYPE.VISIT,
-          value: 'https://example.cypress.io/',
-        },
-        {
-          type: STEP_TYPE.SHOULD,
-          target: 'h1',
-          comparison: COMPARISON_TYPE['have.text'],
-          value: 'Kitchen Sink',
-        },
-      ],
-    },
-    {
-      itShould: 'have google title',
-      steps: [
-        {
-          type: STEP_TYPE.VISIT,
-          value: 'https://example.cypress.io/',
-        },
-        {
-          type: STEP_TYPE.SHOULD,
-          target: 'h1',
-          comparison: COMPARISON_TYPE['have.text'],
-          value: 'Kitchen Sink',
-        },
-      ],
-    },
-  ],
-};
+import { DbService } from '../../../services/db/db.service';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-run-test-page',
   standalone: true,
-  imports: [AsyncPipe, NgIf, TestsetFormComponent],
+  imports: [AsyncPipe, NgIf, TestsetFormComponent, RouterModule],
   templateUrl: './run-test-page.component.html',
   styleUrl: './run-test-page.component.scss',
 })
 export class RunTestPageComponent {
+  dbService = inject(DbService);
+
+  route = inject(ActivatedRoute);
+
   responseBody$ = new ReplaySubject();
 
   running$ = new ReplaySubject<boolean>();
 
-  testSet$ = new BehaviorSubject<TestSet>({
-    name: '',
-    description: '',
-    flows: [],
-  });
+  testSet$ = this.route.params.pipe(
+    map(({ id }) => id),
+    filter(Boolean),
+    switchMap((id) => this.dbService.getTestById(id))
+  );
 
-  constructor() {
-    this.testSet$.next(testSet);
+  constructor() {}
+
+  onTestsetChange(testSet: TestSet) {
+    this.dbService.saveById(testSet);
   }
 
   async runTest(testSet: TestSet) {
@@ -83,6 +50,7 @@ export class RunTestPageComponent {
     const responseBody = await request.text();
 
     this.responseBody$.next(responseBody);
+
     this.running$.next(false);
   }
 }

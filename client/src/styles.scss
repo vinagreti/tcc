@@ -102,9 +102,19 @@ code {
   flex-basis: 100%;
 }
 
-button {
+button,
+.button {
   background-color: darkgreen;
   color: white;
   padding: 4px 8px;
   border-radius: 4px;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid green;
+
+  &:invalid {
+    border-color: red;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TestStepVisit } from '../../../../../../models/test-flow.model';
 import { FormsModule } from '@angular/forms';
 
@@ -11,4 +11,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class TestsetFormStepVisitComponent {
   @Input({ required: true }) step!: TestStepVisit;
+
+  @Output() save = new EventEmitter<TestStepVisit>();
+
+  onSave() {
+    const updated: TestStepVisit = { ...this.step };
+    this.save.emit(updated);
+  }
 }

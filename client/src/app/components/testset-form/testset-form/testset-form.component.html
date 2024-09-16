@@ -1,11 +1,18 @@
 <div class="flex-col gap-4 h-full">
   <div>
     <label for="name">Name: </label>
-    <input type="text" name="name" id="name" [(ngModel)]="testSet.name" />
+    <input
+      required
+      type="text"
+      name="name"
+      id="name"
+      [(ngModel)]="testSet.name"
+    />
   </div>
   <div>
     <label for="description">Description: </label>
     <input
+      required
       type="text"
       name="description"
       id="description"
@@ -16,6 +23,9 @@
   <hr />
 
   <div class="grow flex-col gap-4 pl-8">
-    <app-testset-form-flows [flows]="testSet.flows"></app-testset-form-flows>
+    <app-testset-form-flows
+      [flows]="testSet.flows"
+      (save)="onSave($event)"
+    ></app-testset-form-flows>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { STEP_TYPE, TestStep } from '../../../../../../models/test-flow.model';
 import { TestsetFormStepShouldComponent } from '../testset-form-step-should/testset-form-step-should.component';
 import { TestsetFormStepVisitComponent } from '../testset-form-step-visit/testset-form-step-visit.component';
@@ -19,4 +19,10 @@ export class TestsetFormStepComponent {
   @Input({ required: true }) step!: TestStep;
 
   STEP_TYPE = STEP_TYPE;
+
+  @Output() save = new EventEmitter<TestStep>();
+
+  onSave(step: TestStep) {
+    this.save.emit(step);
+  }
 }

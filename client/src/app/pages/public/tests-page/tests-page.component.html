@@ -1,0 +1,20 @@
+<div class="flex-col gap-16">
+  <h1>tests</h1>
+
+  <div class="flex-col gap-8">
+    <ng-container *ngFor="let test of tests$ | async">
+      <div class="flex gap-8">
+        <a [routerLink]="['/run', test.id]">
+          {{ test.name }}
+        </a>
+        <div>
+          <button (click)="dropTest(test.id)">drop</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div>
+    <button (click)="addNewTest()">Add new test</button>
+  </div>
+</div>

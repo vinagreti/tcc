@@ -1,9 +1,17 @@
 <div class="flex-col gap-4">
   <div>
-    <input type="text" name="description" [(ngModel)]="flow.itShould" />
+    <input
+      required
+      type="text"
+      name="description"
+      [(ngModel)]="flow.itShould"
+    />
   </div>
 
   <div class="pl-8">
-    <app-testset-form-steps [steps]="flow.steps"></app-testset-form-steps>
+    <app-testset-form-steps
+      [steps]="flow.steps"
+      (save)="onSave($event)"
+    ></app-testset-form-steps>
   </div>
 </div>

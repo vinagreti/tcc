@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
 import { TestFlow } from './../../../../../../models/test-flow.model';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TestsetFormFlowComponent } from '../testset-form-flow/testset-form-flow.component';
 
 @Component({
@@ -12,4 +12,17 @@ import { TestsetFormFlowComponent } from '../testset-form-flow/testset-form-flow
 })
 export class TestsetFormFlowsComponent {
   @Input({ required: true }) flows: TestFlow[] = [];
+
+  @Output() save = new EventEmitter<TestFlow[]>();
+
+  onSave(flow: TestFlow, flowIndex: number) {
+    const updated: TestFlow[] = [...this.flows];
+    updated[flowIndex] = flow;
+    this.save.emit(updated);
+  }
+
+  addFlow() {
+    const updated: TestFlow[] = [...this.flows, { itShould: '', steps: [] }];
+    this.save.emit(updated);
+  }
 }

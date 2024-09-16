@@ -1,5 +1,11 @@
 <div class="grow flex-col gap-4">
-  <ng-container *ngFor="let flow of flows">
-    <app-testset-form-flow [flow]="flow"></app-testset-form-flow>
+  <ng-container *ngFor="let flow of flows; let flowIndex = index">
+    <app-testset-form-flow
+      [flow]="flow"
+      (save)="onSave($event, flowIndex)"
+    ></app-testset-form-flow>
   </ng-container>
+  <div>
+    <button (click)="addFlow()">Add new flow</button>
+  </div>
 </div>

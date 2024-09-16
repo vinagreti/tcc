@@ -1,5 +1,25 @@
 <div class="grow flex-col gap-4 border p-4">
-  <ng-container *ngFor="let step of steps">
-    <app-testset-form-step [step]="step"></app-testset-form-step>
+  <ng-container *ngFor="let step of steps; let stepIndex = index">
+    <app-testset-form-step
+      [step]="step"
+      (save)="onSave($event, stepIndex)"
+    ></app-testset-form-step>
   </ng-container>
+
+  <div>
+    <select
+      name="new-step-options"
+      id="new-step-options"
+      class="button"
+      [(ngModel)]="newStepType"
+      (change)="addStep($event)"
+    >
+      <option value="">Add new step</option>
+      <option *ngFor="let stepType of stepTypes" [value]="stepType">
+        <span>
+          Add <b>{{ stepType }}</b>
+        </span>
+      </option>
+    </select>
+  </div>
 </div>
