@@ -1,11 +1,6 @@
-describe("Cypress Kitchen Sink Page", () => {
+describe("New test", () => {
 
-  it("should have google title", () => {
-    cy.visit("https://example.cypress.io/");
-    cy.get("h1").should("have.text", "Kitchen Sink");
-  });
-
-  it("should have google title", () => {
+  it("should have Kitchen Sink title", () => {
     cy.visit("https://example.cypress.io/");
     cy.get("h1").should("have.text", "Kitchen Sink");
   });

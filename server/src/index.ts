@@ -3,6 +3,7 @@ import express from "express";
 import * as fs from "node:fs/promises";
 import { spawn } from "child_process";
 import cors from "cors";
+const ansiToHtml = require("ansi-html");
 
 const app = express();
 const port = 3000;
@@ -23,7 +24,7 @@ app.post("/run", async (req: express.Request, res: express.Response) => {
   const testFile = testParser(body);
   await clearE2eFolder();
   await writeFile("test-write", testFile);
-  const log = await runSpawn("e2e");
+  const log = await runSpawn("e2e", true);
   res.send(log);
 });
 
@@ -82,7 +83,8 @@ async function runSpawn(
       if (code !== 0) {
         reject(new Error(`npm script exited with code ${code}`));
       } else {
-        resolve(stdout);
+        const htmlOutput = ansiToHtml(stdout);
+        resolve(htmlOutput);
       }
     });
   });

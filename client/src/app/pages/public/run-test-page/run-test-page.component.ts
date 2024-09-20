@@ -5,6 +5,7 @@ import { filter, map, ReplaySubject, switchMap } from 'rxjs';
 import { TestsetFormComponent } from '../../../components/testset-form/testset-form/testset-form.component';
 import { DbService } from '../../../services/db/db.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-run-test-page',
@@ -18,7 +19,7 @@ export class RunTestPageComponent {
 
   route = inject(ActivatedRoute);
 
-  responseBody$ = new ReplaySubject();
+  responseBody$ = new ReplaySubject<SafeHtml>();
 
   running$ = new ReplaySubject<boolean>();
 
@@ -28,7 +29,7 @@ export class RunTestPageComponent {
     switchMap((id) => this.dbService.getTestById(id))
   );
 
-  constructor() {}
+  private sanitizer = inject(DomSanitizer);
 
   onTestsetChange(testSet: TestSet) {
     this.dbService.saveById(testSet);
@@ -49,7 +50,13 @@ export class RunTestPageComponent {
 
     const responseBody = await request.text();
 
-    this.responseBody$.next(responseBody);
+    const noBlabkBgBody = responseBody
+      .replaceAll('background:#000;', 'background:#fff;') // remove black bg
+      .replaceAll('color:#888;', 'color:#000;'); // change color to black
+
+    const sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(noBlabkBgBody);
+
+    this.responseBody$.next(sanitizedHtml);
 
     this.running$.next(false);
   }

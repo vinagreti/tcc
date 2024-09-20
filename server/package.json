@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/cors": "^2.8.17",
+    "ansi-html": "^0.0.9",
     "cors": "^2.8.5",
     "cypress": "^13.14.2",
     "express": "^4.19.2",

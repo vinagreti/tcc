@@ -23,8 +23,6 @@
       } @case (false) { Result } }
     </div>
 
-    <code class="pre-line">
-      {{ responseBody$ | async }}
-    </code>
+    <code class="grow pre-line" [innerHTML]="responseBody$ | async"></code>
   </div>
 </div>
