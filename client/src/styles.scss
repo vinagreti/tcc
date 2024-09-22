@@ -104,7 +104,7 @@ code {
 
 button,
 .button {
-  background-color: darkgreen;
+  background-color: rgba(darkgreen, 0.9);
   color: white;
   padding: 4px 8px;
   border-radius: 4px;
@@ -113,8 +113,33 @@ button,
 input {
   border: none;
   border-bottom: 1px solid green;
+  width: 100%;
 
   &:invalid {
     border-color: red;
   }
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: start;
+}
+
+.items-end {
+  align-items: end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-start {
+  justify-content: start;
+}
+
+.justify-end {
+  justify-content: end;
 }

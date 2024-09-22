@@ -25,4 +25,13 @@ export class TestsetFormFlowsComponent {
     const updated: TestFlow[] = [...this.flows, { itShould: '', steps: [] }];
     this.save.emit(updated);
   }
+
+  userTrackBy(index: number, flow: TestFlow) {
+    return index;
+  }
+
+  removeFlow(flowIndex: number) {
+    const updated = this.flows.filter((_, i) => i !== flowIndex);
+    this.save.emit(updated);
+  }
 }

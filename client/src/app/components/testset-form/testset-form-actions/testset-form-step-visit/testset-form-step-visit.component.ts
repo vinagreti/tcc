@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TestStepVisit } from '../../../../../../models/test-flow.model';
+import { TestStep } from '../../../../../../../models/test-flow.model';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -10,12 +10,12 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './testset-form-step-visit.component.scss',
 })
 export class TestsetFormStepVisitComponent {
-  @Input({ required: true }) step!: TestStepVisit;
+  @Input({ required: true }) step!: TestStep;
 
-  @Output() save = new EventEmitter<TestStepVisit>();
+  @Output() save = new EventEmitter<TestStep>();
 
   onSave() {
-    const updated: TestStepVisit = { ...this.step };
+    const updated: TestStep = { ...this.step };
     this.save.emit(updated);
   }
 }

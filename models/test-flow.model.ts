@@ -2,11 +2,12 @@ export enum STEP_TYPE {
   SHOULD = "should",
   VISIT = "visit",
   CLICK = "click",
-  WRITE = "write",
+  FILL = "fill",
 }
 
 export enum COMPARISON_TYPE {
   "have.text" = "have.text",
+  "include.text" = "include.text",
   "be.empty" = "be.empty",
 }
 
@@ -25,7 +26,20 @@ export type TestStepVisit = TestStepBaseProps & {
   type: STEP_TYPE.VISIT;
 };
 
-export type TestStep = TestStepShould | TestStepVisit;
+export type TestStepClick = TestStepBaseProps & {
+  type: STEP_TYPE.CLICK;
+};
+
+export type TestStepFill = TestStepBaseProps & {
+  type: STEP_TYPE.FILL;
+  target: string;
+};
+
+export type TestStep =
+  | TestStepShould
+  | TestStepVisit
+  | TestStepClick
+  | TestStepFill;
 
 export type TestFlow = {
   itShould: string;

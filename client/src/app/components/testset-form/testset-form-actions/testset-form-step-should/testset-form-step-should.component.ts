@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   COMPARISON_TYPE,
   TestStepShould,
-} from '../../../../../../models/test-flow.model';
+} from '../../../../../../../models/test-flow.model';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
 

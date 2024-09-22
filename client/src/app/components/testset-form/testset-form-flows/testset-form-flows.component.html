@@ -1,9 +1,18 @@
 <div class="grow flex-col gap-4">
-  <ng-container *ngFor="let flow of flows; let flowIndex = index">
-    <app-testset-form-flow
-      [flow]="flow"
-      (save)="onSave($event, flowIndex)"
-    ></app-testset-form-flow>
+  <ng-container
+    *ngFor="let flow of flows; index as flowIndex; trackBy: userTrackBy"
+  >
+    <div class="flex gap-4">
+      <div class="grow">
+        <app-testset-form-flow
+          [flow]="flow"
+          (save)="onSave($event, flowIndex)"
+        ></app-testset-form-flow>
+      </div>
+      <div>
+        <button (click)="removeFlow(flowIndex)">x</button>
+      </div>
+    </div>
   </ng-container>
   <div>
     <button (click)="addFlow()">Add new flow</button>

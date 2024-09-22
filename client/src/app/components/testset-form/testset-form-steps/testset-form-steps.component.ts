@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { STEP_TYPE, TestStep } from '../../../../../../models/test-flow.model';
-import { NgFor } from '@angular/common';
+import { NgFor, NgForOf } from '@angular/common';
 import { TestsetFormStepComponent } from '../testset-form-step/testset-form-step.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-testset-form-steps',
   standalone: true,
-  imports: [NgFor, TestsetFormStepComponent, FormsModule],
+  imports: [NgFor, NgForOf, TestsetFormStepComponent, FormsModule],
   templateUrl: './testset-form-steps.component.html',
   styleUrl: './testset-form-steps.component.scss',
 })
@@ -33,5 +33,14 @@ export class TestsetFormStepsComponent {
     const step: TestStep = { type, value: '' } as TestStep;
     const updated: TestStep[] = [...this.steps, step];
     this.save.emit(updated);
+  }
+
+  removeStep(stepIndex: number) {
+    const updated = this.steps.filter((_, i) => i !== stepIndex);
+    this.save.emit(updated);
+  }
+
+  userTrackBy(index: number, step: TestStep) {
+    return index;
   }
 }

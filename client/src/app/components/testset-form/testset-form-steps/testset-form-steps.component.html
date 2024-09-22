@@ -1,9 +1,18 @@
 <div class="grow flex-col gap-4 border p-4">
-  <ng-container *ngFor="let step of steps; let stepIndex = index">
-    <app-testset-form-step
-      [step]="step"
-      (save)="onSave($event, stepIndex)"
-    ></app-testset-form-step>
+  <ng-container
+    *ngFor="let step of steps; index as stepIndex; trackBy: userTrackBy"
+  >
+    <div class="flex gap-4">
+      <div class="grow">
+        <app-testset-form-step
+          [step]="step"
+          (save)="onSave($event, stepIndex)"
+        ></app-testset-form-step>
+      </div>
+      <div>
+        <button (click)="removeStep(stepIndex)">x</button>
+      </div>
+    </div>
   </ng-container>
 
   <div>

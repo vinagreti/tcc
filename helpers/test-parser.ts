@@ -3,6 +3,8 @@ import {
   TestFlow,
   TestSet,
   TestStep,
+  TestStepClick,
+  TestStepFill,
   TestStepShould,
   TestStepVisit,
 } from "./../models/test-flow.model";
@@ -12,7 +14,9 @@ export const testParser = (testSet: TestSet) => {
 };
 
 function writeDescribe(testSet: TestSet) {
-  return `describe("${testSet.name}", () => {\n\n${writeIts(testSet)}\n\n});`;
+  return `// ${testSet.description}\ndescribe('${
+    testSet.name
+  }', () => {\n\n${writeIts(testSet)}\n\n});`;
 }
 
 function writeIts(testSet: TestSet) {
@@ -24,7 +28,7 @@ function writeIts(testSet: TestSet) {
 }
 
 function writeIt(testFlow: TestFlow) {
-  return `  it("should ${testFlow.itShould}", () => {\n${writeSteps(
+  return `  it('should ${testFlow.itShould}', () => {\n${writeSteps(
     testFlow
   )}\n  });`;
 }
@@ -43,13 +47,25 @@ function writeStep(testStep: TestStep) {
       return writeVisitStep(testStep);
     case STEP_TYPE.SHOULD:
       return writeShouldStep(testStep);
+    case STEP_TYPE.FILL:
+      return writeFillStep(testStep);
+    case STEP_TYPE.CLICK:
+      return writeClickStep(testStep);
   }
 }
 
 function writeVisitStep(testStep: TestStepVisit) {
-  return `    cy.visit("${testStep.value}");`;
+  return `    cy.visit('${testStep.value}');`;
 }
 
 function writeShouldStep(testStep: TestStepShould) {
-  return `    cy.get("${testStep.target}").should("${testStep.comparison}", "${testStep.value}");`;
+  return `    cy.get('${testStep.target}').should('${testStep.comparison}', '${testStep.value}');`;
+}
+
+function writeFillStep(testStep: TestStepFill) {
+  return `    cy.get('${testStep.target}').type('${testStep.value}');`;
+}
+
+function writeClickStep(testStep: TestStepClick) {
+  return `    cy.get('${testStep.value}').click();`;
 }
