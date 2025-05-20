@@ -13,10 +13,14 @@ export const testParser = (testSet: TestSet) => {
   return writeDescribe(testSet);
 };
 
+function sanitize(str: string) {
+  return str.replace(/'/g, "\\'");
+}
+
 function writeDescribe(testSet: TestSet) {
-  return `// ${testSet.description}\ndescribe('${
+  return `// ${sanitize(testSet.description)}\ndescribe('${sanitize(
     testSet.name
-  }', () => {\n\n${writeIts(testSet)}\n\n});`;
+  )}', () => {\n\n${writeIts(testSet)}\n\n});`;
 }
 
 function writeIts(testSet: TestSet) {
@@ -28,7 +32,7 @@ function writeIts(testSet: TestSet) {
 }
 
 function writeIt(testFlow: TestFlow) {
-  return `  it('should ${testFlow.itShould}', () => {\n${writeSteps(
+  return `  it('should ${sanitize(testFlow.itShould)}', () => {\n${writeSteps(
     testFlow
   )}\n  });`;
 }
@@ -55,17 +59,21 @@ function writeStep(testStep: TestStep) {
 }
 
 function writeVisitStep(testStep: TestStepVisit) {
-  return `    cy.visit('${testStep.value}');`;
+  return `    cy.visit('${sanitize(testStep.value)}');`;
 }
 
 function writeShouldStep(testStep: TestStepShould) {
-  return `    cy.get('${testStep.target}').should('${testStep.comparison}', '${testStep.value}');`;
+  return `    cy.get('${sanitize(testStep.target)}').should('${sanitize(
+    testStep.comparison
+  )}', '${sanitize(testStep.value)}');`;
 }
 
 function writeFillStep(testStep: TestStepFill) {
-  return `    cy.get('${testStep.target}').type('${testStep.value}');`;
+  return `    cy.get('${sanitize(testStep.target)}').type('${sanitize(
+    testStep.value
+  )}');`;
 }
 
 function writeClickStep(testStep: TestStepClick) {
-  return `    cy.get('${testStep.value}').click();`;
+  return `    cy.get('${sanitize(testStep.value)}').click();`;
 }

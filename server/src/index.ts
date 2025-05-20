@@ -80,12 +80,16 @@ async function runSpawn(
     });
 
     npm.on("close", (code) => {
+      let htmlOutput;
+      // TODO: remove cypress and nodejs sensitive data from the outputs before returning them
       if (code !== 0) {
-        reject(new Error(`npm script exited with code ${code}`));
+        // in case of error we need to parse the error and return it as a string
+        htmlOutput = ansiToHtml(stdout);
       } else {
-        const htmlOutput = ansiToHtml(stdout);
-        resolve(htmlOutput);
+        // in case of success we need to parse the output and return it as a string
+        htmlOutput = ansiToHtml(stdout);
       }
+      resolve(htmlOutput);
     });
   });
 }
