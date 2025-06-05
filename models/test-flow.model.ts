@@ -3,6 +3,7 @@ export enum STEP_TYPE {
   VISIT = "visit",
   CLICK = "click",
   FILL = "fill",
+  URL = "URL",
 }
 
 export enum COMPARISON_TYPE {
@@ -35,11 +36,17 @@ export type TestStepFill = TestStepBaseProps & {
   target: string;
 };
 
+export type TestStepUrl = TestStepBaseProps & {
+  type: STEP_TYPE.URL;
+  target: string;
+};
+
 export type TestStep =
   | TestStepShould
   | TestStepVisit
   | TestStepClick
-  | TestStepFill;
+  | TestStepFill
+  | TestStepUrl;
 
 export type TestFlow = {
   itShould: string;

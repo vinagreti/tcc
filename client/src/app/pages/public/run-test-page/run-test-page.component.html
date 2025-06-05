@@ -17,12 +17,30 @@
     </div>
   </div>
 
+  <div class="border flex-col gap-4 p-8 flex-same-size grow code">
+    <app-testset-preview
+      *ngIf="testSet$ | async as testSet"
+      [testSet]="testSet"
+    ></app-testset-preview>
+  </div>
+
   <div class="border flex-col gap-4 p-8 flex-same-size grow">
-    <div class="">
-      @switch((running$ | async)) { @case (true) { Running tests. Please, wait.
-      } @case (false) { Result } }
+    <div class="flex space-between items-center">
+      @switch (running$ | async) {
+        @case (true) {
+          <h1>Running tests. Please, wait.</h1>
+        }
+        @case (false) {
+          <h1>Result</h1>
+          <span>
+            <a class="button" target="_blank" [href]="screenshotsPath$ | async"
+              >View screenshots</a
+            >
+          </span>
+        }
+      }
     </div>
 
-    <code class="grow pre-line" [innerHTML]="responseBody$ | async"></code>
+    <code class="grow pre-line" [innerHTML]="sanitizedHtml$ | async"></code>
   </div>
 </div>

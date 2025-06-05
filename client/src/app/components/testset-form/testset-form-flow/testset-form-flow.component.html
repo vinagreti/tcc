@@ -5,6 +5,7 @@
       type="text"
       name="description"
       [(ngModel)]="flow.itShould"
+      (ngModelChange)="onSave(flow.steps)"
     />
   </div>
 

@@ -10,17 +10,21 @@ import {
 } from "./../models/test-flow.model";
 
 export const testParser = (testSet: TestSet) => {
-  return writeDescribe(testSet);
+  const testInstructions = writeDescribe(testSet);
+  console.log(testInstructions);
+  return testInstructions.trim();
 };
 
 function sanitize(str: string) {
-  return str.replace(/'/g, "\\'");
+  return (str || "").replace(/'/g, "\\'");
 }
 
 function writeDescribe(testSet: TestSet) {
-  return `// ${sanitize(testSet.description)}\ndescribe('${sanitize(
-    testSet.name
-  )}', () => {\n\n${writeIts(testSet)}\n\n});`;
+  return `//*** ${sanitize(testSet.name)} ***//\n\n// ${sanitize(
+    testSet.description
+  )}\n\ndescribe('${sanitize(testSet.name)}', () => {\n\n${writeIts(
+    testSet
+  )}\n\n});`;
 }
 
 function writeIts(testSet: TestSet) {
@@ -55,6 +59,10 @@ function writeStep(testStep: TestStep) {
       return writeFillStep(testStep);
     case STEP_TYPE.CLICK:
       return writeClickStep(testStep);
+    case STEP_TYPE.URL:
+      return writeClickStep(testStep as any);
+    default:
+      throw new Error(`Unknown step type ${testStep}`);
   }
 }
 

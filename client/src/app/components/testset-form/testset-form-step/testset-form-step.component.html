@@ -42,6 +42,12 @@
           (save)="onSave($event)"
         ></app-testset-form-step-fill>
       }
+      @case (STEP_TYPE.URL) {
+        <app-testset-form-step-url
+          [step]="step"
+          (save)="onSave($event)"
+        ></app-testset-form-step-url>
+      }
     }
   </div>
 </div>

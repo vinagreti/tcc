@@ -6,4 +6,14 @@ describe('New test2', () => {
     cy.get('h1').should('have.text', 'Kitchen Sink');
   });
 
+  it('should ', () => {
+    cy.visit('https://example.cypress.io');
+    cy.get('h1').should('include.text', 'Kitchen Sink');
+  });
+
+  it('should ', () => {
+    cy.visit('');
+
+  });
+
 });

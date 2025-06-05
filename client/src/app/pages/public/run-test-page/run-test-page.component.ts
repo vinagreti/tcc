@@ -6,11 +6,18 @@ import { TestsetFormComponent } from '../../../components/testset-form/testset-f
 import { DbService } from '../../../services/db/db.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { TestsetPreviewComponent } from '../../../components/testset-preview/testset-preview.component';
 
 @Component({
   selector: 'app-run-test-page',
   standalone: true,
-  imports: [AsyncPipe, NgIf, TestsetFormComponent, RouterModule],
+  imports: [
+    AsyncPipe,
+    NgIf,
+    TestsetFormComponent,
+    TestsetPreviewComponent,
+    RouterModule,
+  ],
   templateUrl: './run-test-page.component.html',
   styleUrl: './run-test-page.component.scss',
 })
@@ -19,15 +26,27 @@ export class RunTestPageComponent {
 
   route = inject(ActivatedRoute);
 
-  responseBody$ = new ReplaySubject<SafeHtml>();
+  sanitizedHtml$ = new ReplaySubject<SafeHtml>();
+
+  responseBody$ = new ReplaySubject<{
+    log: SafeHtml;
+    testName: string;
+    screenshotsPath: string;
+  }>();
+
+  screenshotsPath$ = this.responseBody$.pipe(
+    map(({ testName }) => `${this.apiUrl}/static/${testName}.cy.ts`),
+  );
 
   running$ = new ReplaySubject<boolean>();
 
   testSet$ = this.route.params.pipe(
     map(({ id }) => id),
     filter(Boolean),
-    switchMap((id) => this.dbService.getTestById(id))
+    switchMap((id) => this.dbService.getTestById(id)),
   );
+
+  apiUrl = 'http://localhost:3000';
 
   private sanitizer = inject(DomSanitizer);
 
@@ -39,7 +58,7 @@ export class RunTestPageComponent {
     this.running$.next(true);
     const body = JSON.stringify(testSet);
 
-    const request = await fetch('http://localhost:3000/run', {
+    const request = await fetch(`${this.apiUrl}/run`, {
       method: 'post',
       body,
       headers: {
@@ -48,15 +67,17 @@ export class RunTestPageComponent {
       },
     });
 
-    const responseBody = await request.text();
+    const responseBody = await request.json();
 
-    const noBlabkBgBody = responseBody
+    this.responseBody$.next(responseBody);
+
+    const noBlabkBgBody = responseBody.log
       .replaceAll('background:#000;', 'background:#fff;') // remove black bg
       .replaceAll('color:#888;', 'color:#000;'); // change color to black
 
     const sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(noBlabkBgBody);
 
-    this.responseBody$.next(sanitizedHtml);
+    this.sanitizedHtml$.next(sanitizedHtml);
 
     this.running$.next(false);
   }
