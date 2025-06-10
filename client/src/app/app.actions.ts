@@ -1,0 +1,15 @@
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+
+export const AppActions = createActionGroup({
+  source: 'App Action Group',
+  events: {
+    // defining an event without payload using the `emptyProps` function
+    setTitleEmpty: emptyProps(),
+
+    // defining an event with payload using the `props` function
+    setTitleProps: props<{ payload: string }>(),
+
+    // defining an event with payload using the props factory
+    setTitleQuery: (query: string) => ({ query }),
+  },
+});
