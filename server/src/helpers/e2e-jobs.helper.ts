@@ -85,6 +85,10 @@ export const runTests = async (testSet: TestSet) => {
   const testName = `${slug(testSet.name)}-${time}`;
   await clearE2eFolder();
   await writeFile(testName, testInstructions);
-  const log = await runSpawn("e2e", true);
+  const runResult = await runSpawn("e2e", true);
+  const log = runResult
+    .replace(/background:#000;/g, "background:#fff;") // remove black bg
+    .replace(/color:#888;/g, "color:#000;") // change color to black
+    .replace(/color:#fff;/g, "color:#000;");
   return { log, testName };
 };
