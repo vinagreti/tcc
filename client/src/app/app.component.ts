@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { AppActions } from './app.actions';
+import { Store, StoreModule } from '@ngrx/store';
+import { appActions } from './redux/app.actions';
 import { Observable } from 'rxjs';
-import { selectAppTitle } from './app.selectos';
+import { selectAppTitle } from './redux/app.selectos';
 import { AsyncPipe } from '@angular/common';
+import { EffectsModule } from '@ngrx/effects';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, EffectsModule, AsyncPipe],
+  imports: [RouterOutlet, RouterLink, AsyncPipe, StoreModule, EffectsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -23,7 +23,7 @@ export class AppComponent {
 
   changeTitle() {
     this.store.dispatch(
-      AppActions.setTitleProps({ payload: 'teste bruno query' }),
+      appActions.setTitleProps({ payload: 'teste bruno query' }),
     );
   }
 }

@@ -1,29 +1,36 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { DbService } from '../../../services/db/db.service';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { map } from 'rxjs';
+import { Store, StoreModule } from '@ngrx/store';
+import { testsPageActions } from './redux/tests-page.actions';
+import { selectTests } from './redux/tests-page.selectors';
 
 @Component({
   selector: 'app-tests-page',
   standalone: true,
-  imports: [NgFor, AsyncPipe, RouterLink],
+  imports: [NgFor, AsyncPipe, RouterLink, StoreModule],
   templateUrl: './tests-page.component.html',
   styleUrl: './tests-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TestsPageComponent {
-  dbService = inject(DbService);
+  private store = inject(Store);
 
-  tests$ = this.dbService.testsMap$.pipe(
-    map((testsMap) => Object.values(testsMap))
-  );
+  tests$ = this.store.select(selectTests);
+
+  constructor() {
+    this.loadTestsList();
+  }
 
   addNewTest() {
-    this.dbService.addTest();
+    this.store.dispatch(testsPageActions.addNewTest());
   }
 
   dropTest(id: string) {
-    this.dbService.dropById(id);
+    this.store.dispatch(testsPageActions.dropTest({ payload: id }));
+  }
+
+  private loadTestsList() {
+    this.store.dispatch(testsPageActions.fetchTests());
   }
 }

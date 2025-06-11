@@ -7,6 +7,7 @@ import { DbService } from '../../../services/db/db.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TestsetPreviewComponent } from '../../../components/testset-preview/testset-preview.component';
+import { StoreModule } from '@ngrx/store';
 
 @Component({
   selector: 'app-run-test-page',
@@ -17,6 +18,7 @@ import { TestsetPreviewComponent } from '../../../components/testset-preview/tes
     TestsetFormComponent,
     TestsetPreviewComponent,
     RouterModule,
+    StoreModule,
   ],
   templateUrl: './run-test-page.component.html',
   styleUrl: './run-test-page.component.scss',
@@ -46,7 +48,7 @@ export class RunTestPageComponent {
     switchMap((id) => this.dbService.getTestById(id)),
   );
 
-  apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000';
 
   private sanitizer = inject(DomSanitizer);
 

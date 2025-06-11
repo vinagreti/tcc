@@ -54,8 +54,9 @@ export class DbService {
     const current = this.testsMap$.value;
     const test = structuredClone(demoTestSet);
     test.id = `${Date.now()}`;
-    const update: TestsMap = { ...current, [test.id]: test };
-    this.save(update);
+    const updated: TestsMap = { ...current, [test.id]: test };
+    this.save(updated);
+    return test;
   }
 
   dropById(id: string) {

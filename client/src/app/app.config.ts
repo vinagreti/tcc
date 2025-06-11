@@ -3,19 +3,17 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
-import { appReducer } from './reducers/app.reducers';
 import { provideEffects } from '@ngrx/effects';
-import { AppEffects } from './app.effects';
+import { appEffects } from './redux/app.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { appReducers } from './redux/app.reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideStore({
-      appReducer,
-    }),
+    provideStore(appReducers),
     provideStoreDevtools(),
-    provideEffects([AppEffects]),
+    provideEffects(appEffects),
   ],
 };

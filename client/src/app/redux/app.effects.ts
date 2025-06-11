@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { map } from 'rxjs';
-import { AppActions } from './app.actions';
+import { appActions } from './app.actions';
+import { RunTestPageEffects } from '../pages/public/run-test-page/redux/run-test-page.effects';
+import { TestsPageEffects } from '../pages/public/tests-page/redux/tests-page.effects';
 
 @Injectable()
 export class AppEffects {
@@ -11,7 +13,7 @@ export class AppEffects {
 
   private listenToActionsAndRunEffects() {
     this.actions$.pipe(
-      ofType(AppActions.setTitleProps),
+      ofType(appActions.setTitleProps),
       map((action) => {
         console.log('action on effect', action);
         return action;
@@ -19,3 +21,5 @@ export class AppEffects {
     );
   }
 }
+
+export const appEffects = [AppEffects, RunTestPageEffects, TestsPageEffects];
