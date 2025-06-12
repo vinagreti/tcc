@@ -1,10 +1,14 @@
 <div class="h-full flex">
   <div class="border flex-col gap-4 p-8 flex-same-size grow">
-    <div class="flex space-between">
-      <div>Test section</div>
+    <div class="flex space-between items-center">
+      <h1>Test section</h1>
       <div *ngIf="testSet$ | async as testSet">
-        <button (click)="runTest(testSet)" [disabled]="running$ | async">
-          run
+        <button
+          class="button-action"
+          (click)="runTest(testSet)"
+          [disabled]="running$ | async"
+        >
+          Run test
         </button>
       </div>
     </div>
@@ -31,12 +35,22 @@
           <h1>Running tests. Please, wait.</h1>
         }
         @case (false) {
-          <h1>Result</h1>
-          <span>
-            <a class="button" target="_blank" [href]="screenshotsURL$ | async"
-              >View screenshots</a
-            >
-          </span>
+          @switch ((sanitizedHtml$ | async) ? true : false) {
+            @case (false) {
+              <h1>Run your tests to see the results here</h1>
+            }
+            @case (true) {
+              <h1>Test Result</h1>
+              <span>
+                <a
+                  class="button button-action"
+                  target="_blank"
+                  [href]="screenshotsURL$ | async"
+                  >View screenshots</a
+                >
+              </span>
+            }
+          }
         }
       }
     </div>

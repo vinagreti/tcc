@@ -1,28 +1,30 @@
-<div class="flex-col gap-4 h-full">
+<div class="flex-col gap-8 h-full">
   <div>
-    <label for="name">Name: </label>
     <input
       required
       type="text"
       name="name"
       id="name"
+      placeholder="Name"
+      title="Name"
       [(ngModel)]="testSet.name"
     />
   </div>
   <div>
-    <label for="description">Description: </label>
     <input
       required
       type="text"
       name="description"
       id="description"
+      placeholder="Description"
+      title="Description"
       [(ngModel)]="testSet.description"
     />
   </div>
 
   <hr />
 
-  <div class="grow flex-col gap-4 pl-8">
+  <div class="grow flex-col gap-4">
     <app-testset-form-flows
       [flows]="testSet.flows"
       (save)="onSave($event)"

@@ -1,3 +1,23 @@
+:root {
+  --primary-color: black;
+  --primary-contrast: white;
+
+  --secondary-color: green;
+  --secondary-contrast: white;
+
+  --success-color: blue;
+  --success-contrast: white;
+
+  --error-color: red;
+  --error-contrast: white;
+
+  --info-color: lightgrey;
+  --info-contrast: white;
+
+  --action-color: purple;
+  --action-contrast: black;
+}
+
 /* You can add global styles to this file, and also import other style files */
 body,
 html {
@@ -49,27 +69,60 @@ a {
   gap: 4px;
 }
 
+.gap-8 {
+  gap: 16px;
+}
+
 .gap-16 {
-  gap: 4px;
+  gap: 16px;
 }
 
 .overflow-auto {
   overflow: auto;
 }
 
+.primary-color {
+  color: var(--primary-color);
+}
+.secondary-color {
+  color: var(--secondary-color);
+}
+.success-color {
+  color: var(--success-color);
+}
+.error-color {
+  color: var(--error-color);
+}
+.info-color {
+  color: var(--info-color);
+}
+.action-color {
+  color: var(--action-color);
+}
+
 .bg-primary {
-  background-color: black;
-  color: white;
+  background-color: hsl(from var(--primary-color) h s l / 0.8);
+  color: var(--primary-contrast);
 }
-
 .bg-secondary {
-  background-color: black;
-  color: white;
+  background-color: hsl(from var(--secondary-color) h s l / 0.8);
+  color: var(--secondary-con--primary-contrast);
 }
-
+.bg-success {
+  background-color: hsl(from var(--success-color) h s l / 0.8);
+  color: var(--success-con--primary-contrast);
+}
+.bg-error {
+  background-color: hsl(from var(--error-color) h s l / 0.8);
+  color: var(--error-con--primary-contrast);
+}
+.bg-info {
+  background-color: hsl(from var(--info-color) h s l / 0.8);
+  color: var(--info-con--primary-contrast);
+}
 .bg-action {
-  background-color: white;
-  color: black;
+  background-color: hsl(from var(--action-color) h s l / 0.8);
+  color: var(--action-con--primary-contrast);
 }
 
 .p-4 {
@@ -107,13 +160,49 @@ code {
 
 button,
 .button {
-  background-color: rgba(darkgreen, 0.9);
-  color: white;
+  background-color: var(--info-color);
+  color: var(--info-contrast);
   padding: 8px 12px;
   border-radius: 4px;
   margin: 0px;
   line-height: 1em;
   border: none;
+}
+
+button.button-primary,
+.button.button-primary {
+  background-color: var(--primary-color);
+  color: var(--info-contrast);
+}
+
+button.button-secondary,
+.button.button-secondary {
+  background-color: var(--secondary-color);
+  color: var(--info-contrast);
+}
+
+button.button-success,
+.button.button-success {
+  background-color: var(--success-color);
+  color: var(--info-contrast);
+}
+
+button.button-error,
+.button.button-error {
+  background-color: var(--error-color);
+  color: var(--info-contrast);
+}
+
+button.button-info,
+.button.button-info {
+  background-color: var(--info-color);
+  color: var(--info-contrast);
+}
+
+button.button-action,
+.button.button-action {
+  background-color: var(--action-color);
+  color: var(--info-contrast);
 }
 
 input {
