@@ -1,7 +1,5 @@
 <div class="flex-col h-full w-full">
-  <a class="bg-primary p-16" routerLink="/" (click)="changeTitle()">{{
-    title$ | async
-  }}</a>
+  <a class="bg-primary p-16" routerLink="/">{{ title$ | async }}</a>
 
   <div class="grow flex">
     <div class="grow h-full p-16">

@@ -1,21 +1,20 @@
 <div class="flex gap-4 items-end">
   <div>
-    <div>
-      <select
-        name="new-step-options"
-        id="new-step-options"
-        class="button button-primary"
-        [(ngModel)]="step.type"
-        (change)="setStep($event)"
-      >
-        <option *ngFor="let stepType of stepTypes" [value]="stepType">
-          <span>
-            {{ step.type !== stepType ? "Add" : "" }} <b>{{ stepType }}</b>
-          </span>
-        </option>
-      </select>
-    </div>
+    <select
+      name="new-step-options"
+      id="new-step-options"
+      class="button button-primary"
+      [(ngModel)]="step.type"
+      (change)="setStep($event)"
+    >
+      <option *ngFor="let stepType of stepTypes" [value]="stepType">
+        <span>
+          {{ step.type !== stepType ? "Add" : "" }} <b>{{ stepType }}</b>
+        </span>
+      </option>
+    </select>
   </div>
+
   <div class="grow">
     @switch (step.type) {
       @case (STEP_TYPE.VISIT) {

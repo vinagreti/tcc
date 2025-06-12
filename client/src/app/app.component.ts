@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
-import { appActions } from './redux/app.actions';
 import { Observable } from 'rxjs';
 import { selectAppTitle } from './redux/app.selectos';
 import { AsyncPipe } from '@angular/common';
@@ -19,11 +18,5 @@ export class AppComponent {
 
   constructor(private store: Store<{ count: number }>) {
     this.title$ = this.store.select(selectAppTitle);
-  }
-
-  changeTitle() {
-    this.store.dispatch(
-      appActions.setTitleProps({ payload: 'teste bruno query' }),
-    );
   }
 }

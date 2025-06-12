@@ -15,7 +15,6 @@ export class AppEffects {
     this.actions$.pipe(
       ofType(appActions.setTitleProps),
       map((action) => {
-        console.log('action on effect', action);
         return action;
       }),
     );

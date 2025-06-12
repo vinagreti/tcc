@@ -1,5 +1,5 @@
-<div class="h-full flex">
-  <div class="border flex-col gap-4 p-8 flex-same-size grow">
+<div class="h-full flex gap-8">
+  <div class="flex-col gap-4 p-8 flex-same-size grow">
     <div class="flex space-between items-center">
       <h1>Test section</h1>
       <div *ngIf="testSet$ | async as testSet">
@@ -21,14 +21,14 @@
     </div>
   </div>
 
-  <div class="border flex-col gap-4 p-8 flex-same-size grow code">
+  <div class="border-left-md flex-col gap-4 p-8 flex-same-size grow code">
     <app-testset-preview
       *ngIf="testSet$ | async as testSet"
       [testSet]="testSet"
     ></app-testset-preview>
   </div>
 
-  <div class="border flex-col gap-4 p-8 flex-same-size grow">
+  <div class="border-left-md flex-col gap-4 p-8 flex-same-size grow">
     <div class="flex space-between items-center">
       @switch (running$ | async) {
         @case (true) {

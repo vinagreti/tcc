@@ -2,7 +2,7 @@
   <ng-container
     *ngFor="let step of steps; index as stepIndex; trackBy: userTrackBy"
   >
-    <div class="flex gap-4">
+    <div class="flex gap-4 items-center">
       <div class="grow">
         <app-testset-form-step
           [step]="step"
