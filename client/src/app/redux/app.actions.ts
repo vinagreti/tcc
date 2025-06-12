@@ -1,7 +1,7 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 export const appActions = createActionGroup({
-  source: 'App Action Group',
+  source: 'App',
   events: {
     // defining an event without payload using the `emptyProps` function
     setTitleEmpty: emptyProps(),

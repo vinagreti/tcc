@@ -1,6 +1,6 @@
 import { TestSet } from './../../../../../../models/test-flow.model';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { TestsetFormComponent } from '../../../components/testset-form/testset-form/testset-form.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TestsetPreviewComponent } from '../../../components/testset-preview/testset-preview.component';
@@ -13,6 +13,7 @@ import {
   selectTestResultSafeHtml,
   selectTestRunning,
 } from './redux/run-test-page.selectors';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-run-test-page',
@@ -41,9 +42,15 @@ export class RunTestPageComponent {
 
   running$ = this.store.select(selectTestRunning);
 
-  testSet$ = this.store.select(selectTest);
+  testSet$ = this.store
+    .select(selectTest)
+    .pipe(map((testStet) => structuredClone(testStet)));
 
-  private apiUrl = 'http://localhost:3000';
+  @HostListener('document:keydown.control.s', ['$event']) onKeydownHandler(
+    event: KeyboardEvent,
+  ) {
+    event.preventDefault();
+  }
 
   constructor() {
     this.fetchTest();

@@ -12,16 +12,6 @@ describe('New test2', () => {
   it('should have Kitchen Sink title', () => {
     cy.visit('https://example.cypress.io/');
     cy.get('h1').should('have.text', 'Kitchen Sink');
-    cy.visit('');
-    cy.get('').click();
-  });
-
-  it('should ', () => {
-    cy.visit('https://example.cypress.io/');
-    cy.visit('');
-    cy.visit('');
-    cy.visit('');
-    cy.get('').type('');
   });
 
 });

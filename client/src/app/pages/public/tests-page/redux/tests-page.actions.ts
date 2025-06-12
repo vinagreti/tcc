@@ -2,7 +2,7 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { TestSet } from '../../../../../../../models/test-flow.model';
 
 export const testsPageActions = createActionGroup({
-  source: 'Tests Page Action Group',
+  source: 'Tests Page',
   events: {
     'Fetch Tests': emptyProps(),
     'Fetch Tests Response': props<{ payload: TestSet[] }>(),

@@ -6,7 +6,7 @@ import {
 import { SafeHtml } from '@angular/platform-browser';
 
 export const runTestPageActions = createActionGroup({
-  source: 'Run Test Page Action Group',
+  source: 'Run Test Page',
   events: {
     'Run Test': props<{ payload: TestSet }>(),
     'Run Test Result': props<{ payload: TestResult }>(),
