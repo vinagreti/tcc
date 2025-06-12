@@ -11,7 +11,7 @@ import {
 
 export const testParser = (testSet: TestSet) => {
   const testInstructions = writeDescribe(testSet);
-  console.log(testInstructions);
+  // console.log(testInstructions);
   return testInstructions.trim();
 };
 

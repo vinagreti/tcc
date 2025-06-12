@@ -1,13 +1,18 @@
 import { TestSet } from './../../../../../../models/test-flow.model';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { filter, map, ReplaySubject, switchMap } from 'rxjs';
 import { TestsetFormComponent } from '../../../components/testset-form/testset-form/testset-form.component';
-import { DbService } from '../../../services/db/db.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TestsetPreviewComponent } from '../../../components/testset-preview/testset-preview.component';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
+import { runTestPageActions } from './redux/run-test-page.actions';
+import {
+  selectScreenshotsUrl,
+  selectTest,
+  selectTestResult,
+  selectTestResultSafeHtml,
+  selectTestRunning,
+} from './redux/run-test-page.selectors';
 
 @Component({
   selector: 'app-run-test-page',
@@ -24,63 +29,36 @@ import { StoreModule } from '@ngrx/store';
   styleUrl: './run-test-page.component.scss',
 })
 export class RunTestPageComponent {
-  dbService = inject(DbService);
+  private route = inject(ActivatedRoute);
 
-  route = inject(ActivatedRoute);
+  private store = inject(Store);
 
-  sanitizedHtml$ = new ReplaySubject<SafeHtml>();
+  sanitizedHtml$ = this.store.select(selectTestResultSafeHtml);
 
-  responseBody$ = new ReplaySubject<{
-    log: SafeHtml;
-    testName: string;
-    screenshotsPath: string;
-  }>();
+  testResult$ = this.store.select(selectTestResult);
 
-  screenshotsPath$ = this.responseBody$.pipe(
-    map(({ testName }) => `${this.apiUrl}/static/${testName}.cy.ts`),
-  );
+  screenshotsURL$ = this.store.select(selectScreenshotsUrl);
 
-  running$ = new ReplaySubject<boolean>();
+  running$ = this.store.select(selectTestRunning);
 
-  testSet$ = this.route.params.pipe(
-    map(({ id }) => id),
-    filter(Boolean),
-    switchMap((id) => this.dbService.getTestById(id)),
-  );
+  testSet$ = this.store.select(selectTest);
 
   private apiUrl = 'http://localhost:3000';
 
-  private sanitizer = inject(DomSanitizer);
+  constructor() {
+    this.fetchTest();
+  }
+
+  private fetchTest() {
+    const id = this.route.snapshot.params['id'];
+    this.store.dispatch(runTestPageActions.fetchTest({ payload: id }));
+  }
 
   onTestsetChange(testSet: TestSet) {
-    this.dbService.saveById(testSet);
+    this.store.dispatch(runTestPageActions.saveTest({ payload: testSet }));
   }
 
   async runTest(testSet: TestSet) {
-    this.running$.next(true);
-    const body = JSON.stringify(testSet);
-
-    const request = await fetch(`${this.apiUrl}/run`, {
-      method: 'post',
-      body,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const responseBody = await request.json();
-
-    this.responseBody$.next(responseBody);
-
-    const noBlabkBgBody = responseBody.log
-      .replaceAll('background:#000;', 'background:#fff;') // remove black bg
-      .replaceAll('color:#888;', 'color:#000;'); // change color to black
-
-    const sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(noBlabkBgBody);
-
-    this.sanitizedHtml$.next(sanitizedHtml);
-
-    this.running$.next(false);
+    this.store.dispatch(runTestPageActions.runTest({ payload: testSet }));
   }
 }

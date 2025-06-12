@@ -25,7 +25,6 @@ export class TestsetPreviewComponent {
   testSet = input.required<TestSet>();
 
   testInstructions = computed(() => {
-    console.log('aquiiiiiii');
     const parsed = testParser(this.testSet());
     const hignlighted = hljs.highlight(parsed, {
       language: 'javascript',

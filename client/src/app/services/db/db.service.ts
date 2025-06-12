@@ -48,6 +48,7 @@ export class DbService {
     const current = this.testsMap$.value;
     const update: TestsMap = { ...current, [testSet.id]: testSet };
     this.save(update);
+    return testSet;
   }
 
   addTest() {
