@@ -1,24 +1,22 @@
-:root {
-  --primary-color: black;
-  --primary-contrast: white;
+@import "tailwindcss";
 
-  --secondary-color: green;
-  --secondary-contrast: white;
-
-  --success-color: blue;
-  --success-contrast: white;
-
-  --error-color: red;
-  --error-contrast: white;
-
-  --info-color: lightgrey;
-  --info-contrast: white;
-
-  --action-color: purple;
-  --action-contrast: black;
+@theme {
+  --color-primary: black;
+  --color-primary-contrast: white;
+  --color-secondary: #c39bd3;
+  --color-secondary-contrast: white;
+  --color-success: #28b463;
+  --color-success-contrast: white;
+  --color-error: #cb4335;
+  --color-error-contrast: white;
+  --color-warn: #ca6f1e;
+  --color-warn-contrast: white;
+  --color-info: #2e86c1;
+  --color-info-contrast: white;
+  --color-action: #4a235a;
+  --color-action-contrast: white;
 }
 
-/* You can add global styles to this file, and also import other style files */
 body,
 html {
   width: 100dvw;
@@ -33,180 +31,8 @@ html {
 }
 
 a {
-  color: inherit;
   text-decoration: none;
-  line-height: 1em;
   border: none;
-}
-
-.h-full {
-  height: 100%;
-}
-
-.w-full {
-  width: 100%;
-}
-
-.flex {
-  display: flex;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.space-between {
-  justify-content: space-between;
-}
-
-.grow {
-  flex-grow: 1;
-  overflow-y: auto;
-}
-
-.gap-4 {
-  gap: 4px;
-}
-
-.gap-8 {
-  gap: 16px;
-}
-
-.gap-16 {
-  gap: 16px;
-}
-
-.overflow-auto {
-  overflow: auto;
-}
-
-.primary-color {
-  color: var(--primary-color);
-}
-.secondary-color {
-  color: var(--secondary-color);
-}
-.success-color {
-  color: var(--success-color);
-}
-.error-color {
-  color: var(--error-color);
-}
-.info-color {
-  color: var(--info-color);
-}
-.action-color {
-  color: var(--action-color);
-}
-
-.bg-primary {
-  background-color: hsl(from var(--primary-color) h s l / 0.8);
-  color: var(--primary-contrast);
-}
-.bg-secondary {
-  background-color: hsl(from var(--secondary-color) h s l / 0.8);
-  color: var(--secondary-con--primary-contrast);
-}
-.bg-success {
-  background-color: hsl(from var(--success-color) h s l / 0.8);
-  color: var(--success-con--primary-contrast);
-}
-.bg-error {
-  background-color: hsl(from var(--error-color) h s l / 0.8);
-  color: var(--error-con--primary-contrast);
-}
-.bg-info {
-  background-color: hsl(from var(--info-color) h s l / 0.8);
-  color: var(--info-con--primary-contrast);
-}
-.bg-action {
-  background-color: hsl(from var(--action-color) h s l / 0.8);
-  color: var(--action-con--primary-contrast);
-}
-
-.p-4 {
-  padding: 4px;
-}
-
-.pl-4 {
-  padding-left: 4px;
-}
-
-.p-8 {
-  padding: 8px;
-}
-
-.pl-8 {
-  padding-left: 8px;
-}
-
-.p-16 {
-  padding: 16px;
-}
-
-code {
-  white-space: pre-wrap;
-  text-wrap: nowrap;
-}
-
-.border {
-  border: 1px solid black;
-}
-
-.border-left-md {
-  border-left: 4px solid var(--primary-color);
-}
-
-.flex-same-size {
-  flex-basis: 100%;
-}
-
-button,
-.button {
-  background-color: var(--info-color);
-  color: var(--info-contrast);
-  padding: 8px 12px;
-  border-radius: 4px;
-  margin: 0px;
-  line-height: 1em;
-  border: none;
-}
-
-button.button-primary,
-.button.button-primary {
-  background-color: var(--primary-color);
-  color: var(--info-contrast);
-}
-
-button.button-secondary,
-.button.button-secondary {
-  background-color: var(--secondary-color);
-  color: var(--info-contrast);
-}
-
-button.button-success,
-.button.button-success {
-  background-color: var(--success-color);
-  color: var(--info-contrast);
-}
-
-button.button-error,
-.button.button-error {
-  background-color: var(--error-color);
-  color: var(--info-contrast);
-}
-
-button.button-info,
-.button.button-info {
-  background-color: var(--info-color);
-  color: var(--info-contrast);
-}
-
-button.button-action,
-.button.button-action {
-  background-color: var(--action-color);
-  color: var(--info-contrast);
 }
 
 input {
@@ -214,32 +40,42 @@ input {
   border-bottom: 1px solid green;
   width: 100%;
   height: 30px;
+  background-color: rgba(white, 1);
+  padding: 0px 4px;
 
   &:invalid {
     border-color: red;
   }
 }
 
-.items-center {
+button,
+.button {
+  display: flex;
   align-items: center;
-}
-
-.items-start {
-  align-items: start;
-}
-
-.items-end {
-  align-items: end;
-}
-
-.justify-center {
   justify-content: center;
+  padding: 8px 10px;
+  border-radius: 4px;
+  margin: 0px;
+  line-height: 1em;
+  border: none;
 }
 
-.justify-start {
-  justify-content: start;
+h1 {
+  font-size: 32px;
+  font-weight: bold;
 }
 
-.justify-end {
-  justify-content: end;
+code {
+  white-space: pre-wrap;
+  text-wrap: nowrap;
+}
+
+::placeholder {
+  color: grey;
+  opacity: 0.5; /* Firefox */
+}
+
+::-ms-input-placeholder {
+  /* Edge 12 -18 */
+  color: grey;
 }

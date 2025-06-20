@@ -16,13 +16,13 @@ export const testParser = (testSet: TestSet) => {
 };
 
 function sanitize(str: string) {
-  return (str || "").replace(/'/g, "\\'");
+  return (`${str}` || "").replace(/'/g, "\\'");
 }
 
 function writeDescribe(testSet: TestSet) {
-  return `//*** ${sanitize(testSet.name)} ***//\n\n// ${sanitize(
+  return `//*** ${sanitize(testSet.title)} ***//\n\n// ${sanitize(
     testSet.description
-  )}\n\ndescribe('${sanitize(testSet.name)}', () => {\n\n${writeIts(
+  )}\n\ndescribe('${sanitize(testSet.title)}', () => {\n\n${writeIts(
     testSet
   )}\n\n});`;
 }

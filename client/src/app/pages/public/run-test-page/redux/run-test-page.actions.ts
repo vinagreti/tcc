@@ -10,8 +10,6 @@ export const runTestPageActions = createActionGroup({
   events: {
     'Run Test': props<{ payload: TestSet }>(),
     'Run Test Result': props<{ payload: TestResult }>(),
-    'Fetch Test': props<{ payload: string }>(),
-    'Fetch Test Result': props<{ payload: TestSet }>(),
     'Prepare Test Result HTML': props<{ payload: TestResult }>(),
     'Test Result HTML Prepared': props<{ payload: SafeHtml }>(),
     'Prepare Test Result Screenshots URL': props<{ payload: TestResult }>(),

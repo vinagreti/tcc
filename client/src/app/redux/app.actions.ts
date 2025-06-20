@@ -1,4 +1,10 @@
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import {
+  createAction,
+  createActionGroup,
+  emptyProps,
+  props,
+  ActionType,
+} from '@ngrx/store';
 
 export const appActions = createActionGroup({
   source: 'App',
@@ -13,3 +19,14 @@ export const appActions = createActionGroup({
     setTitleQuery: (query: string) => ({ query }),
   },
 });
+
+export const storageActionType = '@ngrx/store/storage';
+
+export const storageAction = createAction(
+  storageActionType,
+  props<{ payload: string }>(),
+);
+
+export type PayloadAction = ActionType<any> & {
+  payload: unknown;
+};

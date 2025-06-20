@@ -1,10 +1,10 @@
-<div class="h-full flex gap-8">
-  <div class="flex-col gap-4 p-8 flex-same-size grow">
-    <div class="flex space-between items-center">
-      <h1>Test section</h1>
+<div class="h-full w-full flex gap-4">
+  <div class="flex flex-col h-full gap-4 basis-full grow overflow-auto">
+    <div class="flex space-between items-center w-full">
+      <h1 class="grow">Test section</h1>
       <div *ngIf="testSet$ | async as testSet">
         <button
-          class="button-action"
+          class="bg-action text-action-contrast"
           (click)="runTest(testSet)"
           [disabled]="running$ | async"
         >
@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div *ngIf="testSet$ | async as testSet">
+    <div *ngIf="testSet$ | async as testSet" class="grow w-full overflow-auto">
       <app-testset-form
         [testSet]="testSet"
         (save)="onTestsetChange($event)"
@@ -21,15 +21,15 @@
     </div>
   </div>
 
-  <div class="border-left-md flex-col gap-4 p-8 flex-same-size grow code">
+  <div class="flex flex-col gap-4 basis-full grow overflow-auto">
     <app-testset-preview
       *ngIf="testSet$ | async as testSet"
       [testSet]="testSet"
     ></app-testset-preview>
   </div>
 
-  <div class="border-left-md flex-col gap-4 p-8 flex-same-size grow">
-    <div class="flex space-between items-center">
+  <div class="flex flex-col gap-4 basis-full grow scroll overflow-auto">
+    <div class="flex space-between items-center w-full">
       @switch (running$ | async) {
         @case (true) {
           <h1>Running tests. Please, wait.</h1>
@@ -40,10 +40,10 @@
               <h1>Run your tests to see the results here</h1>
             }
             @case (true) {
-              <h1>Test Result</h1>
+              <h1 class="grow">Test Result</h1>
               <span>
                 <a
-                  class="button button-action"
+                  class="button bg-action text-action-contrast"
                   target="_blank"
                   [href]="screenshotsURL$ | async"
                   >View screenshots</a
@@ -55,6 +55,6 @@
       }
     </div>
 
-    <code class="grow pre-line" [innerHTML]="sanitizedHtml$ | async"></code>
+    <code [innerHTML]="sanitizedHtml$ | async"></code>
   </div>
 </div>

@@ -55,7 +55,7 @@ export type TestFlow = {
 
 export type TestSet = {
   id: string;
-  name: string;
+  title: string;
   description: string;
   flows: TestFlow[];
 };

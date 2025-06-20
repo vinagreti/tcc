@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
 import { testsPageActions } from './redux/tests-page.actions';
 import { selectTests } from './redux/tests-page.selectors';
+import { TestSet } from '../../../../../../models/test-flow.model';
 
 @Component({
   selector: 'app-tests-page',
@@ -18,19 +19,11 @@ export class TestsPageComponent {
 
   tests$ = this.store.select(selectTests);
 
-  constructor() {
-    this.loadTestsList();
-  }
-
   addNewTest() {
     this.store.dispatch(testsPageActions.addNewTest());
   }
 
-  dropTest(id: string) {
-    this.store.dispatch(testsPageActions.dropTest({ payload: id }));
-  }
-
-  private loadTestsList() {
-    this.store.dispatch(testsPageActions.fetchTests());
+  dropTest(test: TestSet) {
+    this.store.dispatch(testsPageActions.dropTest({ payload: test }));
   }
 }

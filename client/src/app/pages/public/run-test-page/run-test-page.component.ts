@@ -43,22 +43,13 @@ export class RunTestPageComponent {
   running$ = this.store.select(selectTestRunning);
 
   testSet$ = this.store
-    .select(selectTest)
+    .select(selectTest(this.route.snapshot.params['id']))
     .pipe(map((testStet) => structuredClone(testStet)));
 
   @HostListener('document:keydown.control.s', ['$event']) onKeydownHandler(
     event: KeyboardEvent,
   ) {
     event.preventDefault();
-  }
-
-  constructor() {
-    this.fetchTest();
-  }
-
-  private fetchTest() {
-    const id = this.route.snapshot.params['id'];
-    this.store.dispatch(runTestPageActions.fetchTest({ payload: id }));
   }
 
   onTestsetChange(testSet: TestSet) {

@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { RunTestPageState } from './run-test-page.reducers';
+import { selectTests } from '../../tests-page/redux/tests-page.selectors';
 
 export const selectRunTestPageState =
   createFeatureSelector<RunTestPageState>('runTestPageReducer');
@@ -9,10 +10,11 @@ export const selectTestRunning = createSelector(
   (state) => state.testRunning,
 );
 
-export const selectTest = createSelector(
-  selectRunTestPageState,
-  (state) => state.test,
-);
+export const selectTest = (id: string) => {
+  return createSelector(selectTests, (tests) =>
+    tests.find((testSet) => testSet.id === id),
+  );
+};
 
 export const selectTestResult = createSelector(
   selectRunTestPageState,

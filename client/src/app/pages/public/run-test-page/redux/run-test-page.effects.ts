@@ -3,38 +3,17 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { runTestPageActions } from './run-test-page.actions';
 import { from, map, of, switchMap } from 'rxjs';
 import { DbService } from '../../../../services/db/db.service';
-import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable()
 export class RunTestPageEffects {
   private dbService = inject(DbService);
 
-  private route = inject(ActivatedRoute);
-
   private sanitizer = inject(DomSanitizer);
 
   private actions$ = inject(Actions);
 
   private apiUrl = 'http://localhost:3000';
-
-  fetchTests$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(runTestPageActions.fetchTest),
-      switchMap(({ payload }) => this.dbService.getTestById(payload)),
-      map((testSet) =>
-        runTestPageActions.fetchTestResult({ payload: testSet }),
-      ),
-    );
-  });
-
-  saveTest$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(runTestPageActions.saveTest),
-      map(({ payload }) => this.dbService.saveById(payload)),
-      map((testSet) => runTestPageActions.testSaved({ payload: testSet })),
-    );
-  });
 
   runTest$ = createEffect(() => {
     return this.actions$.pipe(
@@ -52,6 +31,7 @@ export class RunTestPageEffects {
           }),
         ).pipe(
           switchMap((resultRaw) => {
+            console.log('hehe');
             return from(resultRaw.json());
           }),
         );

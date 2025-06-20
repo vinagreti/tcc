@@ -1,4 +1,4 @@
-<div class="grow flex-col gap-16">
+<div class="grow flex flex-col gap-2">
   <ng-container
     *ngFor="let step of steps; index as stepIndex; trackBy: userTrackBy"
   >
@@ -15,13 +15,14 @@
     </div>
   </ng-container>
 
-  <div>
+  <div class="flex w-full justify-center">
     <select
+      #newStepTypeSelect="ngModel"
       name="new-step-options"
       id="new-step-options"
-      class="button button-action"
+      class="button bg-action text-action-contrast"
       [(ngModel)]="newStepType"
-      (change)="addStep($event)"
+      (change)="addStep($event); newStepTypeSelect.control.setValue('')"
     >
       <option value="">Add new step</option>
       <option *ngFor="let stepType of stepTypes" [value]="stepType">

@@ -9,7 +9,7 @@ import {
 
 const demoTestSet: TestSet = {
   id: 'demo',
-  name: 'New test',
+  title: 'New test',
   description: 'This is a demo test',
   flows: [
     {

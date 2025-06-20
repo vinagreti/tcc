@@ -18,7 +18,7 @@ const clearE2eFolder = async () => {
   const directory = `${__dirname}/../../cypress/e2e`;
 
   try {
-    await fs.rmdir(directory, {
+    await fs.rm(directory, {
       recursive: true,
     });
   } catch {}
@@ -82,7 +82,7 @@ const writeFile = async (filename: string, content: string) => {
 export const runTests = async (testSet: TestSet) => {
   const testInstructions = testParser(testSet);
   const time = Date.now();
-  const testName = `${slug(testSet.name)}-${time}`;
+  const testName = `${slug(testSet.title)}-${time}`;
   await clearE2eFolder();
   await writeFile(testName, testInstructions);
   const runResult = await runSpawn("e2e", true);

@@ -6,13 +6,13 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { appEffects } from './redux/app.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { appReducers } from './redux/app.reducers';
+import { appReducers, metaReducers } from './redux/app.reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideStore(appReducers),
+    provideStore(appReducers, { metaReducers }),
     provideStoreDevtools(),
     provideEffects(appEffects),
   ],
