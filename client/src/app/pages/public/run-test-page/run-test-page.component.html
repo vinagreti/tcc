@@ -1,5 +1,50 @@
-<div class="h-full w-full flex gap-4">
-  <div class="flex flex-col h-full gap-4 basis-full grow overflow-auto">
+<div class="flex" *ngIf="openTabs$ | async as openTabs">
+  <div
+    class="not-first:border-l-2 p-3 cursor-pointer"
+    [ngClass]="{ 'bg-info text-info-contrast': openTabs.EDIT }"
+    (click)="setTab(openTabs, tabs.EDIT)"
+  >
+    Test section
+    <span
+      class="p-4"
+      (click)="$event.stopPropagation(); setTab(openTabs, tabs.EDIT, true)"
+    >
+      +
+    </span>
+  </div>
+  <div
+    class="not-first:border-l-2 p-3 cursor-pointer"
+    [ngClass]="{ 'bg-info text-info-contrast': openTabs.PREVIEW }"
+    (click)="setTab(openTabs, tabs.PREVIEW)"
+  >
+    Preview
+    <span
+      class="p-4"
+      (click)="$event.stopPropagation(); setTab(openTabs, tabs.PREVIEW, true)"
+    >
+      +
+    </span>
+  </div>
+  <div
+    class="not-first:border-l-2 p-3 cursor-pointer"
+    [ngClass]="{ 'bg-info text-info-contrast': openTabs.RESULT }"
+    (click)="setTab(openTabs, tabs.RESULT)"
+  >
+    Result
+    <span
+      class="p-4"
+      (click)="$event.stopPropagation(); setTab(openTabs, tabs.RESULT, true)"
+    >
+      +
+    </span>
+  </div>
+</div>
+
+<div class="h-full w-full flex gap-4" *ngIf="openTabs$ | async as openTabs">
+  <div
+    class="flex flex-col h-full gap-4 basis-full grow overflow-auto"
+    [ngClass]="{ hidden: !openTabs.EDIT }"
+  >
     <div class="flex space-between items-center w-full">
       <h1 class="grow">Test section</h1>
       <div *ngIf="testSet$ | async as testSet">
@@ -21,23 +66,32 @@
     </div>
   </div>
 
-  <div class="flex flex-col gap-4 basis-full grow overflow-auto">
+  <div
+    class="flex flex-col gap-4 basis-full grow overflow-auto"
+    [ngClass]="{ hidden: !openTabs.PREVIEW }"
+  >
+    <h1>Preview</h1>
     <app-testset-preview
       *ngIf="testSet$ | async as testSet"
       [testSet]="testSet"
     ></app-testset-preview>
   </div>
 
-  <div class="flex flex-col gap-4 basis-full grow scroll overflow-auto">
+  <div
+    class="flex flex-col gap-4 basis-full grow scroll overflow-auto"
+    [ngClass]="{ hidden: !openTabs.RESULT }"
+  >
     <div class="flex space-between items-center w-full">
       @switch (running$ | async) {
         @case (true) {
-          <h1>Running tests. Please, wait.</h1>
+          <p class="text-center w-full">Running tests. Please, wait.</p>
         }
         @case (false) {
           @switch ((sanitizedHtml$ | async) ? true : false) {
             @case (false) {
-              <h1>Run your tests to see the results here</h1>
+              <p class="text-center w-full">
+                Click "Run test" to see the results here
+              </p>
             }
             @case (true) {
               <h1 class="grow">Test Result</h1>
@@ -55,6 +109,6 @@
       }
     </div>
 
-    <code [innerHTML]="sanitizedHtml$ | async"></code>
+    <code [innerHTML]="sanitizedHtml$ | async | json"></code>
   </div>
 </div>

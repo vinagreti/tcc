@@ -4,6 +4,7 @@ import {
   TestSet,
 } from '../../../../../../../models/test-flow.model';
 import { SafeHtml } from '@angular/platform-browser';
+import { OPEN_TABS } from './run-test-page.reducers';
 
 export const runTestPageActions = createActionGroup({
   source: 'Run Test Page',
@@ -16,5 +17,6 @@ export const runTestPageActions = createActionGroup({
     'Test Result Screenshots URL Prepared': props<{ payload: SafeHtml }>(),
     'Save Test': props<{ payload: TestSet }>(),
     'Test Saved': props<{ payload: TestSet }>(),
+    'Set Open Tabs': props<{ payload: OPEN_TABS }>(),
   },
 });

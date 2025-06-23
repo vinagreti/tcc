@@ -31,7 +31,6 @@ export class RunTestPageEffects {
           }),
         ).pipe(
           switchMap((resultRaw) => {
-            console.log('hehe');
             return from(resultRaw.json());
           }),
         );
