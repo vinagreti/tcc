@@ -1,0 +1,52 @@
+<div class="flex gap-4 items-end">
+  <div>
+    <select
+      name="new-step-options"
+      id="new-step-options"
+      class="button button-primary"
+      [(ngModel)]="step.type"
+      (change)="setStep($event)"
+    >
+      <option *ngFor="let stepType of stepTypes" [value]="stepType">
+        <span>
+          {{ step.type !== stepType ? "Add" : "" }} <b>{{ stepType }}</b>
+        </span>
+      </option>
+    </select>
+  </div>
+
+  <div class="grow">
+    @switch (step.type) {
+      @case (STEP_TYPE.VISIT) {
+        <app-testset-form-step-visit
+          [step]="step"
+          (save)="onSave($event)"
+        ></app-testset-form-step-visit>
+      }
+      @case (STEP_TYPE.SHOULD) {
+        <app-testset-form-step-should
+          [step]="step"
+          (save)="onSave($event)"
+        ></app-testset-form-step-should>
+      }
+      @case (STEP_TYPE.CLICK) {
+        <app-testset-form-step-click
+          [step]="step"
+          (save)="onSave($event)"
+        ></app-testset-form-step-click>
+      }
+      @case (STEP_TYPE.FILL) {
+        <app-testset-form-step-fill
+          [step]="step"
+          (save)="onSave($event)"
+        ></app-testset-form-step-fill>
+      }
+      @case (STEP_TYPE.URL) {
+        <app-testset-form-step-url
+          [step]="step"
+          (save)="onSave($event)"
+        ></app-testset-form-step-url>
+      }
+    }
+  </div>
+</div>

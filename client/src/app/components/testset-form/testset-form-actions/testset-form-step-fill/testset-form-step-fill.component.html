@@ -1,0 +1,22 @@
+<div class="flex gap-4 items-end">
+  <div class="grow">
+    <input
+      required
+      type="text"
+      name="target"
+      placeholder="element selector"
+      [(ngModel)]="step.target"
+      (ngModelChange)="onSave()"
+    />
+  </div>
+  <div class="grow">
+    <input
+      required
+      type="text"
+      name="value"
+      placeholder="value"
+      [(ngModel)]="step.value"
+      (ngModelChange)="onSave()"
+    />
+  </div>
+</div>

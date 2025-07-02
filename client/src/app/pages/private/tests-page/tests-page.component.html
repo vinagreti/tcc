@@ -1,0 +1,26 @@
+<div class="flex flex-col gap-4">
+  <h1>Testsets</h1>
+
+  <div class="flex flex-col">
+    <ng-container *ngFor="let test of tests$ | async">
+      <div
+        class="not-last:border-b hover:bg-primary hover:text-primary-contrast flex gap-2 items-center"
+      >
+        <a [routerLink]="['/run', test.id]" class="grow p-2">
+          {{ test.title }}
+        </a>
+        <div>
+          <button class="bg-warn text-warn-contrast" (click)="dropTest(test)">
+            X
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div>
+    <button class="bg-action text-action-contrast" (click)="addNewTest()">
+      Create new test
+    </button>
+  </div>
+</div>

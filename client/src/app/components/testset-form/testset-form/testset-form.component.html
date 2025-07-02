@@ -1,0 +1,147 @@
+<div class="flex flex-col gap-4 h-full">
+  <div>
+    <input
+      required
+      type="text"
+      name="title"
+      id="title"
+      placeholder="Tests Title"
+      title="Tests Title"
+      [(ngModel)]="testSet.title"
+      (ngModelChange)="onSave(testSet.flows)"
+    />
+  </div>
+  <div>
+    <input
+      required
+      type="text"
+      name="description"
+      id="description"
+      placeholder="Description"
+      title="Description"
+      [(ngModel)]="testSet.description"
+      (ngModelChange)="onSave(testSet.flows)"
+    />
+  </div>
+
+  <div class="bg-[rgba(0,0,0,0.1)] p-4 rounded-xl">
+    <div class="flex gap-2 items-center">
+      <div class="flex items-center">
+        <input
+          required
+          type="checkbox"
+          name="authorization"
+          id="authorization"
+          placeholder="Authorization"
+          title="Authorization"
+          [(ngModel)]="testSet.authorization"
+          (ngModelChange)="onAuthorizationFlagChanged($event)"
+        />
+      </div>
+      <div class="grow">Authorization</div>
+    </div>
+
+    @if (testSet.authorization && testSet.authData) {
+      <div class="flex flex-col gap-4 h-full">
+        <div>
+          <input
+            required
+            type="text"
+            name="url"
+            id="url"
+            placeholder="Auth url"
+            title="Auth url"
+            [(ngModel)]="testSet.authData.url"
+            (ngModelChange)="onSave(testSet.flows)"
+          />
+        </div>
+        <div class="flex gap-4">
+          <div class="basis-full">
+            <input
+              required
+              type="text"
+              name="usernameInput"
+              id="usernameInput"
+              placeholder="Auth usernameInput"
+              title="Auth usernameInput"
+              [(ngModel)]="testSet.authData.usernameInput"
+              (ngModelChange)="onSave(testSet.flows)"
+            />
+          </div>
+          <div class="basis-full">
+            <input
+              required
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Auth username"
+              title="Auth username"
+              [(ngModel)]="testSet.authData.username"
+              (ngModelChange)="onSave(testSet.flows)"
+            />
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="basis-full">
+            <input
+              required
+              type="passwordInput"
+              name="passwordInput"
+              id="passwordInput"
+              placeholder="Auth passwordInput"
+              title="Auth passwordInput"
+              [(ngModel)]="testSet.authData.passwordInput"
+              (ngModelChange)="onSave(testSet.flows)"
+            />
+          </div>
+          <div class="basis-full">
+            <input
+              required
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Auth password"
+              title="Auth password"
+              [(ngModel)]="testSet.authData.password"
+              (ngModelChange)="onSave(testSet.flows)"
+            />
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="basis-full">
+            <input
+              required
+              type="successElement"
+              name="successElement"
+              id="successElement"
+              placeholder="Auth successElement"
+              title="Auth successElement"
+              [(ngModel)]="testSet.authData.successElement"
+              (ngModelChange)="onSave(testSet.flows)"
+            />
+          </div>
+          <div class="basis-full">
+            <input
+              required
+              type="successValue"
+              name="successValue"
+              id="successValue"
+              placeholder="Auth success value"
+              title="Auth success value"
+              [(ngModel)]="testSet.authData.successValue"
+              (ngModelChange)="onSave(testSet.flows)"
+            />
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="grow flex flex-col gap-4">
+    <app-testset-form-flows
+      class="h-full"
+      [flows]="testSet.flows"
+      (save)="onSave($event)"
+    ></app-testset-form-flows>
+  </div>
+</div>

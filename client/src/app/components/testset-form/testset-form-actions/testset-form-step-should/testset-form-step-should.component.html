@@ -1,0 +1,38 @@
+<div class="flex gap-4 items-end">
+  <div class="grow">
+    <input
+      required
+      type="text"
+      name="target"
+      placeholder="element selector"
+      [(ngModel)]="step.target"
+      (ngModelChange)="onSave()"
+    />
+  </div>
+  <div>
+    <select
+      name="comparison"
+      class="button"
+      class="button button-primary"
+      [(ngModel)]="step.comparison"
+      (ngModelChange)="onSave()"
+    >
+      <option
+        *ngFor="let comparisonType of comparisonTypes"
+        [value]="comparisonType"
+      >
+        {{ comparisonType }}
+      </option>
+    </select>
+  </div>
+  <div class="grow">
+    <input
+      required
+      type="text"
+      name="value"
+      placeholder="value"
+      [(ngModel)]="step.value"
+      (ngModelChange)="onSave()"
+    />
+  </div>
+</div>

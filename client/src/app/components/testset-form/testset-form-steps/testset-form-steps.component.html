@@ -1,0 +1,35 @@
+<div class="grow flex flex-col gap-2">
+  <ng-container
+    *ngFor="let step of steps; index as stepIndex; trackBy: userTrackBy"
+  >
+    <div class="flex gap-4 items-center">
+      <div class="grow">
+        <app-testset-form-step
+          [step]="step"
+          (save)="onSave($event, stepIndex)"
+        ></app-testset-form-step>
+      </div>
+      <div>
+        <button class="button-error" (click)="removeStep(stepIndex)">x</button>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="flex w-full justify-center">
+    <select
+      #newStepTypeSelect="ngModel"
+      name="new-step-options"
+      id="new-step-options"
+      class="button bg-action text-action-contrast"
+      [(ngModel)]="newStepType"
+      (change)="addStep($event); newStepTypeSelect.control.setValue('')"
+    >
+      <option value="">Add new step</option>
+      <option *ngFor="let stepType of stepTypes" [value]="stepType">
+        <span>
+          Add <b>{{ stepType }}</b>
+        </span>
+      </option>
+    </select>
+  </div>
+</div>

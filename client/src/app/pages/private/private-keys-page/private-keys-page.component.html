@@ -1,0 +1,10 @@
+<h1>Privat keys</h1>
+
+<div class="flex flex-col gap-2">
+  @for (item of keys$ | async; track item.key) {
+    <div class="flex gap-2">
+      <div>{{ item.key }}</div>
+      <div class="grow">{{ item.value }}</div>
+    </div>
+  }
+</div>

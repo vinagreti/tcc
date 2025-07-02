@@ -1,0 +1,139 @@
+<div class="flex bg-disabled" *ngIf="openTabs$ | async as openTabs">
+  <div
+    class="not-first:border-l-8 border-white basis-full cursor-pointer"
+    [ngClass]="{ 'bg-info text-info-contrast': openTabs.EDIT }"
+    (click)="setTab(tabs.EDIT)"
+  >
+    <div class="flex space-between w-full">
+      <span class="grow p-3">Test</span>
+
+      <span
+        class="px-5 py-3 font-bold text-xl"
+        (click)="$event.stopPropagation(); setTab(tabs.EDIT, true)"
+      >
+        @if (openTabs.EDIT) {
+          -
+        } @else {
+          +
+        }
+      </span>
+    </div>
+  </div>
+  <div
+    class="not-first:border-l-8 border-white basis-full cursor-pointer"
+    [ngClass]="{ 'bg-info text-info-contrast': openTabs.PREVIEW }"
+    (click)="setTab(tabs.PREVIEW)"
+  >
+    <div class="flex space-between w-full">
+      <span class="grow p-3">Preview</span>
+
+      <span
+        class="px-5 py-3 font-bold text-xl"
+        (click)="$event.stopPropagation(); setTab(tabs.PREVIEW, true)"
+      >
+        @if (openTabs.PREVIEW) {
+          -
+        } @else {
+          +
+        }
+      </span>
+    </div>
+  </div>
+  <div
+    class="not-first:border-l-8 border-white basis-full cursor-pointer"
+    [ngClass]="{ 'bg-info text-info-contrast': openTabs.RESULT }"
+    (click)="setTab(tabs.RESULT)"
+  >
+    <div class="flex space-between w-full">
+      <span class="grow p-3">Result</span>
+
+      <span
+        class="px-5 py-3 font-bold text-xl"
+        (click)="$event.stopPropagation(); setTab(tabs.RESULT, true)"
+      >
+        @if (openTabs.RESULT) {
+          -
+        } @else {
+          +
+        }
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="h-full w-full flex gap-4" *ngIf="openTabs$ | async as openTabs">
+  <div
+    class="flex flex-col h-full gap-4 basis-full grow overflow-auto"
+    [ngClass]="{ hidden: !openTabs.EDIT }"
+  >
+    <div class="flex space-between items-center w-full">
+      <h1 class="grow">Test section</h1>
+      <div *ngIf="testSet$ | async as testSet">
+        <button
+          class="bg-action text-action-contrast disabled:bg-disabled"
+          (click)="runTest(testSet)"
+          [disabled]="running$ | async"
+        >
+          Run test
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="testSet$ | async as testSet" class="grow w-full overflow-auto">
+      <app-testset-form
+        [testSet]="testSet"
+        (save)="onTestsetChange($event)"
+      ></app-testset-form>
+    </div>
+  </div>
+
+  <div
+    class="flex flex-col gap-4 basis-full grow overflow-auto"
+    [ngClass]="{ hidden: !openTabs.PREVIEW }"
+  >
+    <h1>Preview</h1>
+    <app-testset-preview
+      *ngIf="testSet$ | async as testSet"
+      [testSet]="testSet"
+    ></app-testset-preview>
+  </div>
+
+  <div
+    class="flex flex-col gap-4 basis-full grow scroll overflow-auto"
+    [ngClass]="{ hidden: !openTabs.RESULT }"
+  >
+    @if (testError$ | async; as testError) {
+      <div>
+        <h1 class="text-error">Error running test</h1>
+        <div>Status: {{ testError.response.status }}</div>
+        <code [innerHTML]="safeHtml(testError.body.error)"></code>
+      </div>
+    } @else {
+      @switch (running$ | async) {
+        @case (true) {
+          <p class="text-center w-full">Running tests. Please, wait.</p>
+        }
+        @case (false) {
+          @if (testResult$ | async; as testResult) {
+            <div class="flex space-between items-center w-full">
+              <h1 class="grow text-success">Test Result</h1>
+              <span>
+                <a
+                  class="button bg-action text-action-contrast"
+                  target="_blank"
+                  [href]="screenshotsURL$ | async"
+                  >View screenshots</a
+                >
+              </span>
+            </div>
+            <code [innerHTML]="safeHtml(testResult.log)"></code>
+          } @else {
+            <p class="text-center w-full">
+              Click "Run test" to see the results here
+            </p>
+          }
+        }
+      }
+    }
+  </div>
+</div>

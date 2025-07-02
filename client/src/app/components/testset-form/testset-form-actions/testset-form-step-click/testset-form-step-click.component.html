@@ -1,0 +1,12 @@
+<div class="flex gap-4 items-end">
+  <div>
+    <input
+      required
+      type="text"
+      name="value"
+      placeholder="element selector"
+      [(ngModel)]="step.value"
+      (ngModelChange)="onSave()"
+    />
+  </div>
+</div>

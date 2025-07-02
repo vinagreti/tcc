@@ -1,4 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@theme {
+  --color-primary: black;
+  --color-primary-contrast: white;
+  --color-secondary: #c39bd3;
+  --color-secondary-contrast: white;
+  --color-success: #28b463;
+  --color-success-contrast: white;
+  --color-error: #cb4335;
+  --color-error-contrast: white;
+  --color-warn: #ca6f1e;
+  --color-warn-contrast: white;
+  --color-info: #2e86c1;
+  --color-info-contrast: white;
+  --color-action: #4a235a;
+  --color-action-contrast: white;
+  --color-disabled: #f2f3f4;
+  --color-disabled-contrast: black;
+  --color-white: white;
+  --color-white-contrast: black;
+}
+
 body,
 html {
   width: 100dvw;
@@ -13,61 +35,51 @@ html {
 }
 
 a {
-  color: inherit;
+  text-decoration: none;
+  border: none;
 }
 
-.h-full {
-  height: 100%;
-}
-
-.w-full {
+input {
+  border: none;
+  border-bottom: 1px solid green;
   width: 100%;
+  height: 30px;
+  background-color: rgba(white, 1);
+  padding: 0px 4px;
+
+  &:invalid {
+    border-color: red;
+  }
 }
 
-.flex {
+button,
+.button {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  border-radius: 4px;
+  margin: 0px;
+  line-height: 1em;
+  border: none;
 }
 
-.flex-col {
-  display: flex;
-  flex-direction: column;
+h1 {
+  font-size: 32px;
+  font-weight: bold;
 }
 
-.grow {
-  flex-grow: 1;
+code {
+  white-space: pre-wrap;
+  text-wrap: nowrap;
 }
 
-.gap-4 {
-  gap: 4px;
+::placeholder {
+  color: grey;
+  opacity: 0.5; /* Firefox */
 }
 
-.gap-16 {
-  gap: 4px;
-}
-
-.overflow-auto {
-  overflow: auto;
-}
-
-.bg-primary {
-  background-color: black;
-  color: white;
-}
-
-.bg-secondary {
-  background-color: pink;
-  color: white;
-}
-
-.bg-action {
-  background-color: white;
-  color: black;
-}
-
-.p-4 {
-  padding: 4px;
-}
-
-.p-16 {
-  padding: 16px;
+::-ms-input-placeholder {
+  /* Edge 12 -18 */
+  color: grey;
 }

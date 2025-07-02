@@ -1,0 +1,23 @@
+<div class="flex flex-col gap-6">
+  <ng-container
+    *ngFor="let flow of flows; index as flowIndex; trackBy: userTrackBy"
+  >
+    <div class="flex gap-8 bg-[rgba(0,0,0,0.1)] p-4 rounded-xl">
+      <div class="grow">
+        <app-testset-form-flow
+          [flow]="flow"
+          (save)="onSave($event, flowIndex)"
+        ></app-testset-form-flow>
+      </div>
+      <div>
+        <button class="button-error" (click)="removeFlow(flowIndex)">x</button>
+      </div>
+    </div>
+  </ng-container>
+
+  <div>
+    <button class="bg-action text-action-contrast p-4" (click)="addFlow()">
+      Add new test flow
+    </button>
+  </div>
+</div>
