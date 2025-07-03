@@ -1,28 +1,26 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, inject, OnInit, Renderer2 } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { selectAppTitle } from './redux/app.selectos';
-import { AsyncPipe } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
 import { storageAction } from './redux/app.actions';
+import { I18nService } from './services/i18n';
+import { AppTranslationKeysMap } from './i18n/i18n-translation-keys';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, AsyncPipe, StoreModule, EffectsModule],
+  imports: [RouterOutlet, RouterLink, StoreModule, EffectsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  title$: Observable<string>;
+  private store = inject(Store);
 
-  constructor(
-    private store: Store<{ count: number }>,
-    private readonly renderer: Renderer2,
-  ) {
-    this.title$ = this.store.select(selectAppTitle);
-  }
+  private readonly renderer = inject(Renderer2);
+
+  public i18n: I18nService<AppTranslationKeysMap> = inject(
+    I18nService<AppTranslationKeysMap>,
+  );
 
   ngOnInit() {
     this.renderer.listen('window', 'storage', (event) => {
