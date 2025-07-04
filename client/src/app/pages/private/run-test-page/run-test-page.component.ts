@@ -10,6 +10,8 @@ import { runTestPageActions } from './redux/run-test-page.actions';
 import { runTestPageStateSelectors } from './redux/run-test-page.selectors';
 import { firstValueFrom, map } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
+import { I18nService } from '@/services/i18n';
+import { AppTranslationKeysMap } from '@/i18n/i18n-translation-keys';
 
 @Component({
   selector: 'app-run-test-page',
@@ -34,6 +36,10 @@ export class RunTestPageComponent {
   private sanitizer = inject(DomSanitizer);
 
   private store = inject(Store);
+
+  public i18n: I18nService<AppTranslationKeysMap> = inject(
+    I18nService<AppTranslationKeysMap>,
+  );
 
   safeHtml = this.sanitizer.bypassSecurityTrustHtml;
 

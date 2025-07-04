@@ -3,8 +3,10 @@
 @theme {
   --color-primary: black;
   --color-primary-contrast: white;
-  --color-secondary: #c39bd3;
-  --color-secondary-contrast: white;
+  --color-secondary: #f9f8f2;
+  --color-secondary-contrast: black;
+  --color-tertiary: #f4a375;
+  --color-tertiary-contrast: black;
   --color-success: #28b463;
   --color-success-contrast: white;
   --color-error: #cb4335;
@@ -13,7 +15,7 @@
   --color-warn-contrast: white;
   --color-info: #2e86c1;
   --color-info-contrast: white;
-  --color-action: #4a235a;
+  --color-action: #93386b;
   --color-action-contrast: white;
   --color-disabled: #f2f3f4;
   --color-disabled-contrast: black;
@@ -53,7 +55,8 @@ input {
 }
 
 button,
-.button {
+.button,
+a .button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,4 +85,8 @@ code {
 ::-ms-input-placeholder {
   /* Edge 12 -18 */
   color: grey;
+}
+
+.font-brush {
+  font-family: "Brush Script MT", cursive;
 }

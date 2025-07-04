@@ -5,6 +5,8 @@ import { Store, StoreModule } from '@ngrx/store';
 import { testsPageActions } from './redux/tests-page.actions';
 import { selectTests } from './redux/tests-page.selectors';
 import { TestSet } from '../../../../../../models/test-flow.model';
+import { I18nService } from '@/services/i18n';
+import { AppTranslationKeysMap } from '@/i18n/i18n-translation-keys';
 
 @Component({
   selector: 'app-tests-page',
@@ -16,6 +18,10 @@ import { TestSet } from '../../../../../../models/test-flow.model';
 })
 export class TestsPageComponent {
   private store = inject(Store);
+
+  public i18n: I18nService<AppTranslationKeysMap> = inject(
+    I18nService<AppTranslationKeysMap>,
+  );
 
   tests$ = this.store.select(selectTests);
 

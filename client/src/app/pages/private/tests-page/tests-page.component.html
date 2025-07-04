@@ -1,5 +1,5 @@
-<div class="flex flex-col gap-4">
-  <h1>Testsets</h1>
+<div class="flex flex-col gap-4 p-4">
+  <h1>{{ i18n.trans.pages.tests.title }}</h1>
 
   <div class="flex flex-col">
     <ng-container *ngFor="let test of tests$ | async">
@@ -20,7 +20,7 @@
 
   <div>
     <button class="bg-action text-action-contrast" (click)="addNewTest()">
-      Create new test
+      {{ i18n.trans.pages.tests.createNewTest }}
     </button>
   </div>
 </div>

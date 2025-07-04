@@ -1,14 +1,30 @@
 <div class="flex flex-col h-full overflow-auto">
-  <div class="bg-primary text-white p-4">
+  <div class="bg-secondary text-seconday-contrast p-4 px-8">
     <div class="flex gap-2 w-full">
-      <a routerLink="/">{{ i18n.trans.app.title }}</a>
+      <a class="text-4xl font-brush antialiased" routerLink="/">{{
+        i18n.trans.app.title
+      }}</a>
       <div class="grow flex gap-2 justify-end">
-        <a routerLink="/private-keys">Private keys</a>
+        <div class="not-first:border-l-2 boder-color-primary">
+          <a class="button" routerLink="/tests">{{
+            i18n.trans.pages.tests.title
+          }}</a>
+        </div>
+        <div class="not-first:border-l-2 boder-color-primary">
+          <a class="button" routerLink="/org">{{
+            i18n.trans.pages.org.title
+          }}</a>
+        </div>
+        <div class="not-first:border-l-2 boder-color-primary">
+          <a class="button" routerLink="/account">{{
+            i18n.trans.pages.account.title
+          }}</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="grow flex p-4 overflow-auto">
+  <div class="grow flex overflow-auto">
     <router-outlet></router-outlet>
   </div>
 </div>
