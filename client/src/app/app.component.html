@@ -20,6 +20,20 @@
             i18n.trans.pages.account.title
           }}</a>
         </div>
+        <div class="not-first:border-l-2 boder-color-primary pt-1 px-4">
+          <select
+            name="locale"
+            id="locale"
+            [(ngModel)]="currentLocale"
+            (ngModelChange)="setLocale($event)"
+          >
+            @for (locale of i18n.enabledLocales; track locale) {
+              <option [value]="locale" [title]="localeLabel(locale)">
+                {{ localeShortLabel(locale) }}
+              </option>
+            }
+          </select>
+        </div>
       </div>
     </div>
   </div>

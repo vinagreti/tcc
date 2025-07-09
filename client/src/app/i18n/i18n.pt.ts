@@ -1,12 +1,23 @@
 import { AppTranslationKeysMap } from '@/i18n/i18n-translation-keys';
+import { I18nLocale } from '@/services/i18n';
 
 // Using AppTranslationKeysMap as TYPE is the JUMP OF THE CAT
 export const ptBr: AppTranslationKeysMap = {
   app: {
-    title: 'Lets test',
+    title: 'We test',
     subtitle1: 'Você inova,',
-    subtitle2: ' nós testamos!',
+    subtitle2: 'Nós testamos!',
     welcome: (name) => `Bem vindo ${name}`,
+    locale: {
+      short: {
+        [I18nLocale.en]: 'En',
+        [I18nLocale.pt]: 'Pt',
+      },
+      label: {
+        [I18nLocale.en]: 'English',
+        [I18nLocale.pt]: 'Português',
+      },
+    },
     actions: {
       open: 'Abrir',
       close: 'Fechar',
