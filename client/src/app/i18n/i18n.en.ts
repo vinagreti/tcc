@@ -67,8 +67,8 @@ export const enUs: AppTranslationKeysMap = {
       description: 'My account data',
     },
     org: {
-      title: 'My organization',
-      description: 'My organization data',
+      title: 'My organizations',
+      description: 'My organizations data',
     },
   },
 };

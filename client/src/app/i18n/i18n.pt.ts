@@ -68,8 +68,8 @@ export const ptBr: AppTranslationKeysMap = {
       description: 'Dados da minha conta',
     },
     org: {
-      title: 'Minha organização',
-      description: 'Dados da minha organização',
+      title: 'Minhas organizações',
+      description: 'Dados da minhas organizações',
     },
   },
 };

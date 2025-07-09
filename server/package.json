@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node-dev ./src/index.ts",
-    "e2e": "npx cypress run"
+    "e2e": "npx cypress run",
+    "img:build": "tsc && docker build -t wetest/beta .",
+    "img:run": "docker run -p 3000:3000 wetest/beta",
+    "img:serve": "npm run img:build && npm run img:run"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +28,7 @@
     "eslint": "^9.9.0",
     "globals": "^15.9.0",
     "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.16",
     "typescript-eslint": "^8.2.0"
   }
 }

@@ -5,6 +5,7 @@ import { PrivateKeysPageComponent } from './pages/private/private-keys-page/priv
 import { HomePageComponent } from './pages/public/home-page/home-page.component';
 import { AccountPageComponent } from './pages/private/account-page/account-page.component';
 import { OrgPageComponent } from './pages/private/org-page/org-page.component';
+import { SignupPageComponent } from './pages/public/signup-page/signup-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -13,4 +14,5 @@ export const routes: Routes = [
   { path: 'private-keys', component: PrivateKeysPageComponent },
   { path: 'account', component: AccountPageComponent },
   { path: 'org', component: OrgPageComponent },
+  { path: 'signup', component: SignupPageComponent },
 ];
