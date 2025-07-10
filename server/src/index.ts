@@ -4,6 +4,7 @@ import { runTests } from "./helpers/e2e-jobs.helper";
 import { TestSet } from "@models/test-flow.model";
 const serveIndex = require("serve-index");
 const path = require("path");
+const statusMonitor = require("express-status-monitor");
 
 const app = express();
 const port = 3000;
@@ -15,6 +16,9 @@ app.use(express.json());
 
 // CORS
 app.use(cors());
+
+// Add Express Status Monitor middleware
+app.use(statusMonitor());
 
 app.get("/", (req: express.Request, res: express.Response) => {
   res.send("Hello World!");

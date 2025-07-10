@@ -61,16 +61,18 @@ function writeSession(authData: TestSetAuthData) {
 
 function writeIts(testSet: TestSet) {
   return testSet.flows
-    .map((flow) => {
-      return writeIt(flow);
+    .map((flow, itIndex) => {
+      return writeIt(flow, itIndex);
     })
     .join("\n\n");
 }
 
-function writeIt(testFlow: TestFlow) {
-  return `  it('should ${sanitize(testFlow.itShould)}', () => {\n${writeSteps(
+function writeIt(testFlow: TestFlow, itIndex: number) {
+  return `  it('${itIndex}: should ${sanitize(
+    testFlow.itShould
+  )}', () => {\n${writeSteps(
     testFlow
-  )}\n  });`;
+  )}\n    cy.screenshot('${itIndex}');\n  });`;
 }
 
 function writeSteps(testFlow: TestFlow) {

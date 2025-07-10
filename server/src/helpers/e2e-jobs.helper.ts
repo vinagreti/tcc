@@ -76,11 +76,6 @@ const generateTestFolderPath = (testName: string, testSet: TestSet) => {
   return testFolderPath;
 };
 
-const generateCypressFolderPath = (testName: string, testSet: TestSet) => {
-  const testFolderPath = `cypress/e2e/${testName}`;
-  return testFolderPath;
-};
-
 const createTestFolder = async (testFolderPath: string) => {
   try {
     await fs.mkdir(testFolderPath, {

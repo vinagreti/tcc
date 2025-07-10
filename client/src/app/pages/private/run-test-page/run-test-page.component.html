@@ -108,7 +108,18 @@
     >
       @if (testError$ | async; as testError) {
         <div>
-          <h1 class="text-error">{{ i18n.trans.app.labels.error }}</h1>
+          <div class="flex space-between items-center w-full">
+            <h1 class="text-error">{{ i18n.trans.app.labels.error }}</h1>
+
+            <span>
+              <a
+                class="button bg-action text-action-contrast"
+                target="_blank"
+                [href]="screenshotsURL$ | async"
+                >{{ i18n.trans.pages.runTest.viewScreenshots }}</a
+              >
+            </span>
+          </div>
           <div>
             {{ i18n.trans.app.labels.status }}: {{ testError.response.status }}
           </div>

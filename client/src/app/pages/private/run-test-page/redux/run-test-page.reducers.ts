@@ -44,6 +44,8 @@ export const runTestPageReducer = createReducer(
     const newState: RunTestPageState = {
       ...state,
       testRunning: true,
+      testError: undefined,
+      testResult: undefined,
       test: payload,
     };
     return newState;
