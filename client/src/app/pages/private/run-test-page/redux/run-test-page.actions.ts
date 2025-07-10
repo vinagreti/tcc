@@ -17,7 +17,7 @@ export const runTestPageActions = createActionGroup({
     'Prepare Test Result HTML': props<{ payload: TestResult }>(),
     'Test Result HTML Prepared': props<{ payload: SafeHtml }>(),
     'Prepare Test Result Screenshots URL': props<{ payload: TestResult }>(),
-    'Test Result Screenshots URL Prepared': props<{ payload: SafeHtml }>(),
+    'Test Result Screenshots URL Prepared': props<{ payload: string[] }>(),
     'Save Test': props<{ payload: TestSet }>(),
     'Test Saved': props<{ payload: TestSet }>(),
     'Set Open Tabs': props<{ payload: OPEN_TABS }>(),

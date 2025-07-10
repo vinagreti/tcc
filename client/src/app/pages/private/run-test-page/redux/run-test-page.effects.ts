@@ -87,12 +87,14 @@ export class RunTestPageEffects {
     return this.actions$.pipe(
       ofType(runTestPageActions.prepareTestResultScreenshotsURL),
       map(({ payload }) => {
-        const screenshotsUrl = `${this.apiUrl}/static/${payload.testName}.cy.ts`;
-        return screenshotsUrl;
+        const screenshotsUrls = payload.files.map(
+          (file) => `${this.apiUrl}/static/${payload.testName}.cy.ts/${file}`,
+        );
+        return screenshotsUrls;
       }),
-      map((screenshotsUrl) =>
+      map((screenshotsUrls) =>
         runTestPageActions.testResultScreenshotsURLPrepared({
-          payload: screenshotsUrl,
+          payload: screenshotsUrls,
         }),
       ),
     );

@@ -30,7 +30,7 @@ app.post("/run", async (req: express.Request, res: express.Response) => {
   try {
     const testResult = await runTests(testSet);
     res.send({
-      testName: testResult.testName,
+      ...testResult,
       log: prepareHtml(testResult.log),
     });
   } catch (error: any) {

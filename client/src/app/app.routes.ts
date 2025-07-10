@@ -6,11 +6,13 @@ import { HomePageComponent } from './pages/public/home-page/home-page.component'
 import { AccountPageComponent } from './pages/private/account-page/account-page.component';
 import { OrgPageComponent } from './pages/private/org-page/org-page.component';
 import { SignupPageComponent } from './pages/public/signup-page/signup-page.component';
+import { ScreenshotsPageComponent } from './pages/private/screenshots-page/screenshots-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'tests', component: TestsPageComponent },
   { path: 'run/:id', component: RunTestPageComponent },
+  { path: 'screenshots/:id', component: ScreenshotsPageComponent },
   { path: 'private-keys', component: PrivateKeysPageComponent },
   { path: 'account', component: AccountPageComponent },
   { path: 'org', component: OrgPageComponent },

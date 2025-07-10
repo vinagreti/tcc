@@ -4,7 +4,6 @@ import {
   TestResult,
   TestSet,
 } from '../../../../../../../models/test-flow.model';
-import { SafeHtml } from '@angular/platform-browser';
 
 export enum TABS {
   EDIT = 'EDIT',
@@ -24,7 +23,7 @@ export type RunTestPageState = {
   testRunning: boolean;
   testResult?: TestResult;
   testError?: TestErrorData;
-  screenshotsUrl?: SafeHtml;
+  screenshotsUrls?: string[];
   test?: TestSet;
   openTabs: OPEN_TABS;
 };
@@ -80,7 +79,7 @@ export const runTestPageReducer = createReducer(
   on(
     runTestPageActions.testResultScreenshotsURLPrepared,
     (state, { payload }) => {
-      const newState: RunTestPageState = { ...state, screenshotsUrl: payload };
+      const newState: RunTestPageState = { ...state, screenshotsUrls: payload };
       return newState;
     },
   ),

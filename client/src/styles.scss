@@ -38,7 +38,6 @@ html {
 
 a {
   text-decoration: none;
-  border: none;
 }
 
 input {
@@ -64,6 +63,9 @@ a .button {
   border-radius: 4px;
   margin: 0px;
   line-height: 1em;
+}
+
+button {
   border: none;
 }
 

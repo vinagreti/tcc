@@ -26,9 +26,9 @@ const selectTestError = createSelector(
   (state) => state.testError,
 );
 
-const selectScreenshotsUrl = createSelector(
+const selectScreenshotsUrls = createSelector(
   selectRunTestPageState,
-  (state) => state.screenshotsUrl,
+  (state) => state.screenshotsUrls,
 );
 
 const selectOpenTabs = createSelector(
@@ -41,7 +41,7 @@ export const runTestPageStateSelectors = {
   selectTestRunning,
   selectTest,
   selectTestResult,
-  selectScreenshotsUrl,
+  selectScreenshotsUrls,
   selectOpenTabs,
   selectTestError,
 };

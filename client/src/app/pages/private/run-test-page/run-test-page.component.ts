@@ -8,7 +8,7 @@ import { TestsetPreviewComponent } from '../../../components/testset-preview/tes
 import { Store, StoreModule } from '@ngrx/store';
 import { runTestPageActions } from './redux/run-test-page.actions';
 import { runTestPageStateSelectors } from './redux/run-test-page.selectors';
-import { firstValueFrom, map } from 'rxjs';
+import { firstValueFrom, map, switchMap } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { I18nService } from '@/services/i18n';
 import { AppTranslationKeysMap } from '@/i18n/i18n-translation-keys';
@@ -47,17 +47,21 @@ export class RunTestPageComponent {
 
   testError$ = this.store.select(runTestPageStateSelectors.selectTestError);
 
-  screenshotsURL$ = this.store.select(
-    runTestPageStateSelectors.selectScreenshotsUrl,
-  );
-
   running$ = this.store.select(runTestPageStateSelectors.selectTestRunning);
 
-  testSet$ = this.store
-    .select(
-      runTestPageStateSelectors.selectTest(this.route.snapshot.params['id']),
-    )
-    .pipe(map((testStet) => structuredClone(testStet)));
+  testId$ = this.route.params.pipe(map((params) => params['id']));
+
+  testSet$ = this.testId$.pipe(
+    switchMap((testId) => {
+      return this.store
+        .select(runTestPageStateSelectors.selectTest(testId))
+        .pipe(map((testStet) => structuredClone(testStet)));
+    }),
+  );
+
+  screenshotsURL$ = this.testId$.pipe(
+    map((testId) => `/screenshots/${testId}`),
+  );
 
   openTabs$ = this.store.select(runTestPageStateSelectors.selectOpenTabs);
 

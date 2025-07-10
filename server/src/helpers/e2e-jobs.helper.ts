@@ -1,7 +1,12 @@
-import * as fs from "node:fs/promises";
 import { spawn } from "child_process";
 import { testParser } from "./../../../helpers/test-parser";
 import { TestSet } from "@models/test-flow.model";
+import {
+  listFiles,
+  createFolder,
+  dropFolder,
+  writeFile,
+} from "./files.helpers";
 
 const ansiToHtml = require("ansi-html");
 
@@ -56,13 +61,6 @@ const runSpawn = async (
   });
 };
 
-// write file - write file to the e2e folder
-const writeFile = async (testPath: string, content: string) => {
-  try {
-    await fs.writeFile(testPath, `${content}`);
-  } catch (err) {}
-};
-
 const generateTestName = (title: string) => {
   const time = Date.now();
   const testName = `${slug(title)}-${time}`;
@@ -70,43 +68,32 @@ const generateTestName = (title: string) => {
 };
 
 const generateTestFolderPath = (testName: string, testSet: TestSet) => {
-  const testFolderPath = `${
-    (global as any).appRoot
-  }/../cypress/e2e/${testName}`;
+  const testFolderPath = `${__dirname}/../../cypress/e2e/${testName}`;
   return testFolderPath;
-};
-
-const createTestFolder = async (testFolderPath: string) => {
-  try {
-    await fs.mkdir(testFolderPath, {
-      recursive: true,
-    });
-  } catch {}
-};
-
-const dropTestFolder = async (testName: string, testSet: TestSet) => {
-  const testFolderPath = generateTestFolderPath(testName, testSet);
-  try {
-    await fs.rm(testFolderPath, {
-      recursive: true,
-    });
-  } catch (e) {}
 };
 
 const createTestFiles = async (testName: string, testSet: TestSet) => {
   const testFolderPath = generateTestFolderPath(testName, testSet);
   const testPath = `${testFolderPath}/${testName}.cy.ts`;
   const testInstructions = testParser(testSet);
-  await createTestFolder(testFolderPath);
+  await createFolder(testFolderPath);
   await writeFile(testPath, testInstructions);
+};
+
+const generateScreenshotFolder = (testName: string) => {
+  const screenshotFolder = `${__dirname}/../../cypress/screenshots/${testName}.cy.ts`;
+  return screenshotFolder;
 };
 
 // run tests - run the e2e tests and return the output as a string
 export const runTests = async (testSet: TestSet) => {
   const testName = generateTestName(testSet.title);
+  const testFolderPath = generateTestFolderPath(testName, testSet);
+  const screenshotFolder = generateScreenshotFolder(testName);
   await createTestFiles(testName, testSet);
   const cypressFolderPath = generateTestFolderPath(testName, testSet);
   const log = await runSpawn(cypressFolderPath, "e2e", true);
-  await dropTestFolder(testName, testSet);
-  return { log, testName };
+  const files = await listFiles(screenshotFolder);
+  await dropFolder(testFolderPath);
+  return { log, testName, files };
 };

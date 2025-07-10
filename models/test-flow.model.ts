@@ -77,4 +77,5 @@ export type TestsMap = { [key: string]: TestSet };
 export type TestResult = {
   log: string;
   testName: string;
+  files: string[];
 };

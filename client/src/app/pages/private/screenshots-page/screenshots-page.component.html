@@ -1,0 +1,26 @@
+<div class="flex flex-col p-4 gap-4">
+  <h1>Screenshots</h1>
+
+  <div class="flex flex-wrap gap-4">
+    @for (screenshot of screenshotsURLs$ | async; track screenshot) {
+      <div class="flex flex-col items-center">
+        <a
+          class="w-90 h-90 flex justify-center border border-tertiary border-2 p-1"
+          [href]="screenshot"
+          target="_blank"
+        >
+          <img
+            [src]="screenshot"
+            [alt]="screenshot"
+            class="max-h-full max-w-full"
+          />
+        </a>
+        <small class="text-tertiary font-bold"
+          >{{ screenshot.split("/").reverse()[1] }}/{{
+            screenshot.split("/").reverse()[0]
+          }}</small
+        >
+      </div>
+    }
+  </div>
+</div>
