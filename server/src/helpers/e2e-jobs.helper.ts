@@ -13,34 +13,22 @@ const slug = (text: string) => {
     .replace(/\s+/g, "-");
 };
 
-// clear e2e folder
-const clearE2eFolder = async () => {
-  const directory = `${__dirname}/../../cypress/e2e`;
-
-  try {
-    await fs.rm(directory, {
-      recursive: true,
-    });
-  } catch {}
-
-  try {
-    await fs.mkdir(directory);
-  } catch (error) {}
-
-  return true;
-};
-
 // run spawn - run script in terminal
 const runSpawn = async (
+  testFolderPath: string,
   script: string,
   forceColor: boolean = false
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
-    const npm = spawn("npm", ["run", script, "--color=always"], {
-      stdio: "pipe",
-      shell: true,
-      env: { ...process.env, FORCE_COLOR: forceColor } as any,
-    });
+    const npm = spawn(
+      "npm",
+      ["run", script, "--color=always", "-- --spec", `${testFolderPath}/**/*`],
+      {
+        stdio: "pipe",
+        shell: true,
+        env: { ...process.env, FORCE_COLOR: forceColor } as any,
+      }
+    );
 
     let stdout = "";
     let stderr = "";
@@ -69,24 +57,61 @@ const runSpawn = async (
 };
 
 // write file - write file to the e2e folder
-const writeFile = async (filename: string, content: string) => {
+const writeFile = async (testPath: string, content: string) => {
   try {
-    await fs.writeFile(
-      `${__dirname}/../../cypress/e2e/${filename}.cy.ts`,
-      `${content}`
-    );
-  } catch (err) {
-    //console.log(err);
-  }
+    await fs.writeFile(testPath, `${content}`);
+  } catch (err) {}
+};
+
+const generateTestName = (title: string) => {
+  const time = Date.now();
+  const testName = `${slug(title)}-${time}`;
+  return testName;
+};
+
+const generateTestFolderPath = (testName: string, testSet: TestSet) => {
+  const testFolderPath = `${
+    (global as any).appRoot
+  }/../cypress/e2e/${testName}`;
+  return testFolderPath;
+};
+
+const generateCypressFolderPath = (testName: string, testSet: TestSet) => {
+  const testFolderPath = `cypress/e2e/${testName}`;
+  return testFolderPath;
+};
+
+const createTestFolder = async (testFolderPath: string) => {
+  try {
+    await fs.mkdir(testFolderPath, {
+      recursive: true,
+    });
+  } catch {}
+};
+
+const dropTestFolder = async (testName: string, testSet: TestSet) => {
+  const testFolderPath = generateTestFolderPath(testName, testSet);
+  try {
+    await fs.rm(testFolderPath, {
+      recursive: true,
+    });
+  } catch (e) {}
+};
+
+const createTestFiles = async (testName: string, testSet: TestSet) => {
+  const testFolderPath = generateTestFolderPath(testName, testSet);
+  const testPath = `${testFolderPath}/${testName}.cy.ts`;
+  const testInstructions = testParser(testSet);
+  await createTestFolder(testFolderPath);
+  await writeFile(testPath, testInstructions);
 };
 
 // run tests - run the e2e tests and return the output as a string
 export const runTests = async (testSet: TestSet) => {
-  const testInstructions = testParser(testSet);
-  const time = Date.now();
-  const testName = `${slug(testSet.title)}-${time}`;
-  await clearE2eFolder();
-  await writeFile(testName, testInstructions);
-  const log = await runSpawn("e2e", true);
+  const testName = generateTestName(testSet.title);
+  await createTestFiles(testName, testSet);
+  const cypressFolderPath = generateTestFolderPath(testName, testSet);
+  const log = await runSpawn(cypressFolderPath, "e2e", true);
+  await dropTestFolder(testName, testSet);
   return { log, testName };
 };

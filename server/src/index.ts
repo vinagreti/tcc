@@ -30,14 +30,9 @@ app.post("/run", async (req: express.Request, res: express.Response) => {
       log: prepareHtml(testResult.log),
     });
   } catch (error: any) {
-    res
-      .set({
-        Etag: "12345",
-      })
-      .status(400)
-      .send({
-        error: prepareHtml(error),
-      });
+    res.status(500).send({
+      error: prepareHtml(error),
+    });
   }
 });
 
@@ -52,8 +47,17 @@ app.listen(port, hostname, () => {
 });
 
 function prepareHtml(log: string) {
-  return log
+  return removeSensitiveData(log)
     .replace(/background:#000;/g, "background:#fff;") // remove black bg
     .replace(/color:#888;/g, "color:#000;") // change color to black
     .replace(/color:#fff;/g, "color:#000;");
+}
+
+function removeSensitiveData(log: string) {
+  const resultIndex = log.indexOf("<span");
+  if (resultIndex >= 0) {
+    return log.slice(resultIndex);
+  } else {
+    return log;
+  }
 }
