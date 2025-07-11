@@ -22,24 +22,24 @@ function sanitize(str: string) {
 function writeDescribe(testSet: TestSet) {
   const hasSession = testSet.authorization && !!testSet.authData;
   const hasBeforeEach = hasSession;
-  return `//*** ${sanitize(testSet.title)} ***//\n// ${sanitize(
-    testSet.description
-  )}\n\ndescribe('${sanitize(testSet.title)}', () => {\n\n${
-    hasBeforeEach
-      ? `${writeBeforeEach(testSet)}
-\n`
-      : ""
-  }${writeIts(testSet)}\n\n});`;
+  const hasAccessibility = true;
+  const hasBefore = hasAccessibility;
+
+  let template = `import { printHumanReadbleAccessibilityLog } from "./../../support/accessibility";\n\n`;
+  template += `//*** ${sanitize(testSet.title)} ***//`;
+  template += `\n// ${sanitize(testSet.description)}`;
+  template += `\ndescribe('${sanitize(testSet.title)}', () => {\n`;
+  //if (hasBefore) template += `\n${writeBefore(testSet)}\n`;
+  if (hasBeforeEach) template += `\n${writeBeforeEach(testSet)}\n`;
+  template += `\n${writeIts(testSet)}\n\n});`;
+  return template;
 }
 
 function writeBeforeEach(testSet: TestSet) {
   const hasSession = testSet.authorization && !!testSet.authData;
-  const hasBeforeEach = hasSession;
-  return hasBeforeEach
-    ? `  beforeEach(() => {\n${
-        hasSession ? writeSession(testSet.authData!) : ""
-      }\n  });`
-    : "";
+  return `  beforeEach(() => {\n${
+    hasSession ? writeSession(testSet.authData!) : ""
+  }\n  });`;
 }
 
 function writeSession(authData: TestSetAuthData) {
@@ -59,6 +59,19 @@ function writeSession(authData: TestSetAuthData) {
   } as TestStepShould)}\n    });`;
 }
 
+function writeAccessibility() {
+  return `   cy.injectAxe();\n    cy.checkA11y(null, undefined, printHumanReadbleAccessibilityLog, true);`;
+}
+
+function writeBefore(testSet: TestSet) {
+  const hasAccessibility = true;
+  return `  before(() => {\n${hasAccessibility ? addAxios() : ""}\n  });`;
+}
+
+function addAxios() {
+  return `   cy.injectAxe();`;
+}
+
 function writeIts(testSet: TestSet) {
   return testSet.flows
     .map((flow, itIndex) => {
@@ -72,7 +85,7 @@ function writeIt(testFlow: TestFlow, itIndex: number) {
     testFlow.itShould
   )}', () => {\n${writeSteps(
     testFlow
-  )}\n    cy.screenshot('${itIndex}');\n  });`;
+  )}\n    cy.screenshot('${itIndex}');\n ${writeAccessibility()}\n  });`;
 }
 
 function writeSteps(testFlow: TestFlow) {

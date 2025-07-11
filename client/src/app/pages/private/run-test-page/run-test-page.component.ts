@@ -8,7 +8,7 @@ import { TestsetPreviewComponent } from '../../../components/testset-preview/tes
 import { Store, StoreModule } from '@ngrx/store';
 import { runTestPageActions } from './redux/run-test-page.actions';
 import { runTestPageStateSelectors } from './redux/run-test-page.selectors';
-import { firstValueFrom, map, switchMap } from 'rxjs';
+import { firstValueFrom, map, switchMap, tap } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { I18nService } from '@/services/i18n';
 import { AppTranslationKeysMap } from '@/i18n/i18n-translation-keys';
@@ -45,7 +45,9 @@ export class RunTestPageComponent {
 
   testResult$ = this.store.select(runTestPageStateSelectors.selectTestResult);
 
-  testError$ = this.store.select(runTestPageStateSelectors.selectTestError);
+  testError$ = this.store
+    .select(runTestPageStateSelectors.selectTestError)
+    .pipe(tap(console.log));
 
   running$ = this.store.select(runTestPageStateSelectors.selectTestRunning);
 

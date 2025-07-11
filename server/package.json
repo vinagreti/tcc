@@ -26,6 +26,8 @@
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@types/express": "^4.17.21",
+    "axe-core": "^4.10.3",
+    "cypress-axe": "^1.6.0",
     "eslint": "^9.9.0",
     "globals": "^15.9.0",
     "ts-node-dev": "^2.0.0",

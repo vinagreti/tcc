@@ -128,7 +128,9 @@
       } @else {
         @switch (running$ | async) {
           @case (true) {
-            <p class="text-center w-full">{{ i18n.trans.app.actions.run }}</p>
+            <p class="text-center w-full">
+              {{ i18n.trans.app.labels.runningTest }}
+            </p>
           }
           @case (false) {
             @if (testResult$ | async; as testResult) {
