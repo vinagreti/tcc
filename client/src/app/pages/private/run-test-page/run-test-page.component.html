@@ -1,4 +1,4 @@
-<div class="p-4">
+<div class="flex flex-col h-full overflow-auto p-4">
   <div class="flex bg-disabled" *ngIf="openTabs$ | async as openTabs">
     <div
       class="not-first:border-l-8 border-white basis-full cursor-pointer"
@@ -62,7 +62,10 @@
     </div>
   </div>
 
-  <div class="h-full w-full flex gap-4" *ngIf="openTabs$ | async as openTabs">
+  <div
+    class="grow flex gap-4 h-full overflow-auto"
+    *ngIf="openTabs$ | async as openTabs"
+  >
     <div
       class="flex flex-col h-full gap-4 basis-full grow overflow-auto"
       [ngClass]="{ hidden: !openTabs.EDIT }"
