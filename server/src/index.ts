@@ -2,12 +2,12 @@ import express from "express";
 import cors from "cors";
 import { runTests } from "./helpers/e2e-jobs.helper";
 import { TestSet } from "@models/test-flow.model";
+import * as path from "path";
 const serveIndex = require("serve-index");
-const path = require("path");
 const statusMonitor = require("express-status-monitor");
 
 const app = express();
-const port = 3000;
+const port = 80;
 const hostname = "0.0.0.0";
 const screenshotPath = path.join(__dirname, "../cypress/screenshots");
 
@@ -21,7 +21,7 @@ app.use(cors());
 app.use(statusMonitor());
 
 app.get("/", (req: express.Request, res: express.Response) => {
-  res.send("Hello World!");
+  res.send("Up and running!!!");
 });
 
 app.post("/run", async (req: express.Request, res: express.Response) => {

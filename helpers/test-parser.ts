@@ -60,7 +60,7 @@ function writeSession(authData: TestSetAuthData) {
 }
 
 function writeAccessibility() {
-  return `   cy.injectAxe();\n    cy.checkA11y(null, undefined, printHumanReadbleAccessibilityLog, true);`;
+  return `   cy.injectAxe();\n    cy.checkA11y(undefined, undefined, printHumanReadbleAccessibilityLog, true);`;
 }
 
 function writeBefore(testSet: TestSet) {

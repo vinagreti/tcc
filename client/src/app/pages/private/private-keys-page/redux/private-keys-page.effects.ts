@@ -7,7 +7,7 @@ import { from, map, switchMap } from 'rxjs';
 export class PrivateKeysPageEffects {
   private actions$ = inject(Actions);
 
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://168.138.146.184';
 
   runTest$ = createEffect(() => {
     return this.actions$.pipe(

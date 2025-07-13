@@ -68,20 +68,23 @@ const generateTestName = (title: string) => {
 };
 
 const generateTestFolderPath = (testName: string, testSet: TestSet) => {
-  const testFolderPath = `${__dirname}/../../cypress/e2e/${testName}`;
+  const testFolderPath = `cypress/e2e/${testName}`;
   return testFolderPath;
 };
 
-const createTestFiles = async (testName: string, testSet: TestSet) => {
-  const testFolderPath = generateTestFolderPath(testName, testSet);
+const createTestFiles = async (
+  testFolderPath: string,
+  testName: string,
+  testSet: TestSet
+) => {
   const testPath = `${testFolderPath}/${testName}.cy.ts`;
   const testInstructions = testParser(testSet);
   await createFolder(testFolderPath);
   await writeFile(testPath, testInstructions);
 };
 
-const generateScreenshotFolder = (testName: string) => {
-  const screenshotFolder = `${__dirname}/../../cypress/screenshots/${testName}.cy.ts`;
+const generateScreenshotFolderPath = (testName: string) => {
+  const screenshotFolder = `cypress/screenshots/${testName}.cy.ts`;
   return screenshotFolder;
 };
 
@@ -89,11 +92,10 @@ const generateScreenshotFolder = (testName: string) => {
 export const runTests = async (testSet: TestSet) => {
   const testName = generateTestName(testSet.title);
   const testFolderPath = generateTestFolderPath(testName, testSet);
-  const screenshotFolder = generateScreenshotFolder(testName);
-  await createTestFiles(testName, testSet);
-  const cypressFolderPath = generateTestFolderPath(testName, testSet);
-  const log = await runSpawn(cypressFolderPath, "e2e", true);
-  const files = await listFiles(screenshotFolder);
+  const screenshotFolderPath = generateScreenshotFolderPath(testName);
+  await createTestFiles(testFolderPath, testName, testSet);
+  const log = await runSpawn(testFolderPath, "e2e", true);
+  const files = await listFiles(screenshotFolderPath);
   await dropFolder(testFolderPath);
   return { log, testName, files };
 };

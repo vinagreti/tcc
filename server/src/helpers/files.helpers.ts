@@ -1,11 +1,11 @@
-var fsp = require("fs/promises");
+import * as fsp from "fs/promises";
 
 export const listFiles = async (path: string) => {
   console.log("listFiles >>>>>>>", path);
   try {
     return await fsp.readdir(path);
   } catch (err) {
-    console.log(err);
+    console.log("listFiles ERROR", err);
   }
 };
 
@@ -15,7 +15,7 @@ export const writeFile = async (path: string, content: string) => {
   try {
     await fsp.writeFile(path, `${content}`);
   } catch (err) {
-    console.log(err);
+    console.log("writeFile ERROR", err);
   }
 };
 
@@ -26,7 +26,7 @@ export const dropFolder = async (path: string) => {
       recursive: true,
     });
   } catch (err) {
-    console.log(err);
+    console.log("dropFolder ERROR", err);
   }
 };
 
@@ -37,15 +37,6 @@ export const createFolder = async (path: string) => {
       recursive: true,
     });
   } catch (err) {
-    console.log(err);
+    console.log("createFolder ERROR", err);
   }
 };
-
-const path = `${__dirname}/../../cypress/screenshots/tcc-2-1752161526714.cy.ts`;
-
-async function test() {
-  const files = await listFiles(path);
-  console.log(files);
-}
-
-test();

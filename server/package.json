@@ -5,15 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev ./src/index.ts",
+    "start": "ts-node-dev --transpile-only ./src/index.ts",
+    "develop": "ts-node-dev ./src/index.ts",
     "e2e": "npx cypress run",
-    "img:build": "tsc && docker build -t wetest/beta .",
-    "img:run": "docker run -p 3000:3000 wetest/beta",
+    "img:build": "tsc && docker build -t wetest/latest .",
+    "img:run": "docker run -p 80:80 wetest/latest",
     "img:serve": "npm run img:build && npm run img:run"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@swc/wasm-typescript": "^1.12.11",
     "@types/cors": "^2.8.17",
     "ansi-html": "^0.0.9",
     "cors": "^2.8.5",

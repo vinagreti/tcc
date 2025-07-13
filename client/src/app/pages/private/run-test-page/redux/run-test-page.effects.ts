@@ -2,18 +2,15 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { runTestPageActions } from './run-test-page.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
 import { fromFetch } from 'rxjs/fetch';
 import { TestResult } from '../../../../../../../models/test-flow.model';
 import { TestErrorData } from './run-test-page.reducers';
 
 @Injectable()
 export class RunTestPageEffects {
-  private sanitizer = inject(DomSanitizer);
-
   private actions$ = inject(Actions);
 
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://168.138.146.184';
 
   runTest$ = createEffect(() => {
     return this.actions$.pipe(

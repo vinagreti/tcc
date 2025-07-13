@@ -1,0 +1,9 @@
+FROM cypress/browsers AS server
+WORKDIR /app
+COPY server ./server
+COPY helpers ./helpers
+COPY models ./models
+WORKDIR /app/server
+RUN npm ci
+
+CMD ["npm", "start"]
