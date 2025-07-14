@@ -1,9 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { runTestPageActions } from './run-test-page.actions';
-import {
-  TestResult,
-  TestSet,
-} from '../../../../../../../models/test-flow.model';
+import { TestResult, TestSet } from '@/models/shared';
 
 export enum TABS {
   EDIT = 'EDIT',

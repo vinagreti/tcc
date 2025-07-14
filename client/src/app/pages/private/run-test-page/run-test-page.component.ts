@@ -1,5 +1,5 @@
 import { OPEN_TABS, TABS } from './redux/run-test-page.reducers';
-import { TestSet } from './../../../../../../models/test-flow.model';
+import { TestSet } from '@/models/shared';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { Component, HostListener, inject } from '@angular/core';
 import { TestsetFormComponent } from '../../../components/testset-form/testset-form/testset-form.component';

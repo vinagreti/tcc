@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TestStep } from '../../../../../../../models/test-flow.model';
+import { TestStep } from '@/models/shared';
 
 @Component({
   selector: 'app-testset-form-step-url',

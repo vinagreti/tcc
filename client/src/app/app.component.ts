@@ -2,9 +2,9 @@ import { Component, inject, OnInit, Renderer2 } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { storageAction } from './redux/app.actions';
-import { I18nLocale, I18nService } from './services/i18n';
-import { AppTranslationKeysMap } from './i18n/i18n-translation-keys';
+import { storageAction } from '@/redux/app.actions';
+import { I18nLocale, I18nService } from '@/services/i18n';
+import { AppTranslationKeysMap } from '@/i18n/i18n-translation-keys';
 import { FormsModule } from '@angular/forms';
 
 @Component({

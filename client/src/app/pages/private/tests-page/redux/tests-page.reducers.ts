@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { testsPageActions } from './tests-page.actions';
-import { TestSet } from '../../../../../../../models/test-flow.model';
+import { TestSet } from '@/models/shared';
 import { runTestPageActions } from '../../run-test-page/redux/run-test-page.actions';
 
 export type TestsPageState = { tests: TestSet[] };

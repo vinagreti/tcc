@@ -1,5 +1,5 @@
 import { createActionGroup, props } from '@ngrx/store';
-import { TestSet } from '../../../../../../../models/test-flow.model';
+import { TestSet } from '@/models/shared';
 
 export const privateKeysPageActions = createActionGroup({
   source: 'Private Keys Page',

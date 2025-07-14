@@ -1,15 +1,11 @@
+import { COMPARISON_TYPE } from "./chai/chai.assertions";
+
 export enum STEP_TYPE {
   SHOULD = "should",
   VISIT = "visit",
   CLICK = "click",
   FILL = "fill",
   URL = "URL",
-}
-
-export enum COMPARISON_TYPE {
-  "have.text" = "have.text",
-  "include.text" = "include.text",
-  "be.empty" = "be.empty",
 }
 
 export type TestStepBaseProps = {

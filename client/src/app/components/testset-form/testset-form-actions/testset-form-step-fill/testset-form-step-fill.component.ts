@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { TestStepFill } from '../../../../../../../models/test-flow.model';
+import { TestStepFill } from '@/models/shared';
 import { FormsModule } from '@angular/forms';
 
 @Component({

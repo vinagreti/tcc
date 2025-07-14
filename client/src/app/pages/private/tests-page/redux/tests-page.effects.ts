@@ -2,11 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { testsPageActions } from './tests-page.actions';
 import { map } from 'rxjs';
-import {
-  COMPARISON_TYPE,
-  STEP_TYPE,
-  TestSet,
-} from '../../../../../../../models/test-flow.model';
+import { STEP_TYPE, TestSet } from '@/models/shared';
+import { COMPARISON_TYPE } from '@/models/shared';
 
 const demoTestSet: TestSet = {
   id: 'demo',

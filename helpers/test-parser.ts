@@ -1,5 +1,4 @@
 import {
-  COMPARISON_TYPE,
   STEP_TYPE,
   TestFlow,
   TestSet,
@@ -55,7 +54,7 @@ function writeSession(authData: TestSetAuthData) {
   )}\n  ${writeShouldStep({
     target: authData.successElement,
     value: authData.successValue,
-    comparison: COMPARISON_TYPE["include.text"],
+    comparison: "include.text",
   } as TestStepShould)}\n    });`;
 }
 

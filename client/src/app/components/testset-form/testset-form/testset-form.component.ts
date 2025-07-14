@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TestFlow, TestSet } from '../../../../../../models/test-flow.model';
+import { TestFlow, TestSet } from '@/models/shared';
 import { FormsModule } from '@angular/forms';
 import { TestsetFormFlowsComponent } from '../testset-form-flows/testset-form-flows.component';
 import { TestsetFormFlowComponent } from '../testset-form-flow/testset-form-flow.component';

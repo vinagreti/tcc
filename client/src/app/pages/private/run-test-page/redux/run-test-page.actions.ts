@@ -1,8 +1,5 @@
 import { createActionGroup, props } from '@ngrx/store';
-import {
-  TestResult,
-  TestSet,
-} from '../../../../../../../models/test-flow.model';
+import { TestResult, TestSet } from '@/models/shared';
 import { SafeHtml } from '@angular/platform-browser';
 import { OPEN_TABS, TestErrorData } from './run-test-page.reducers';
 

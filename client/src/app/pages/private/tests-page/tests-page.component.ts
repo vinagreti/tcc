@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
 import { testsPageActions } from './redux/tests-page.actions';
 import { selectTests } from './redux/tests-page.selectors';
-import { TestSet } from '../../../../../../models/test-flow.model';
+import { TestSet } from '@/models/shared';
 import { I18nService } from '@/services/i18n';
 import { AppTranslationKeysMap } from '@/i18n/i18n-translation-keys';
 

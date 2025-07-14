@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { runTestPageActions } from './run-test-page.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
-import { TestResult } from '../../../../../../../models/test-flow.model';
+import { TestResult } from '@/models/shared';
 import { TestErrorData } from './run-test-page.reducers';
 
 @Injectable()

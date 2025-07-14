@@ -7,15 +7,15 @@ import {
 } from '@ngrx/store';
 import { createReducer, on } from '@ngrx/store';
 import { appActions } from './app.actions';
-import { runTestPageReducer } from '../pages/private/run-test-page/redux/run-test-page.reducers';
-import { testsPageReducer } from '../pages/private/tests-page/redux/tests-page.reducers';
+import { runTestPageReducer } from '@/pages/private/run-test-page/redux/run-test-page.reducers';
+import { testsPageReducer } from '@/pages/private/tests-page/redux/tests-page.reducers';
 import { PayloadAction } from './app.actions';
 import {
   Keys,
   localStorageSync,
   rehydrateApplicationState,
 } from 'ngrx-store-localstorage';
-import { privateKeysPageReducer } from '../pages/private/private-keys-page/redux/private-keys-page.reducers';
+import { privateKeysPageReducer } from '@/pages/private/private-keys-page/redux/private-keys-page.reducers';
 
 const storageActionType = '@ngrx/store/storage';
 

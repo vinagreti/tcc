@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import {
-  COMPARISON_TYPE,
   STEP_TYPE,
   TestSet,
   TestsMap,
 } from '../../../../../models/test-flow.model';
+import { COMPARISON_TYPE } from '@/models/shared';
 
 const demoTestSet: TestSet = {
   id: 'demo',

@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  COMPARISON_TYPE,
-  TestStepShould,
-} from '../../../../../../../models/test-flow.model';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { TestStepShould } from '@/models/shared';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
+import { COMPARISON_TYPE } from '@/models/shared';
+import { I18nService } from '@/services/i18n';
+import { AppTranslationKeysMap } from '@/i18n/i18n-translation-keys';
 
 @Component({
   selector: 'app-testset-form-step-should',
@@ -15,6 +15,10 @@ import { NgFor } from '@angular/common';
 })
 export class TestsetFormStepShouldComponent {
   comparisonTypes = Object.values(COMPARISON_TYPE);
+
+  public i18n: I18nService<AppTranslationKeysMap> = inject(
+    I18nService<AppTranslationKeysMap>,
+  );
 
   @Input({ required: true }) step!: TestStepShould;
 

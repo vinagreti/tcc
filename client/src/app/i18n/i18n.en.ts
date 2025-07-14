@@ -1,5 +1,6 @@
 import { AppTranslationKeysMap } from '@/i18n/i18n-translation-keys';
 import { I18nLocale } from '@/services/i18n';
+import { chai } from './../../../../models/chai/chai.assertion.i18n.en';
 
 // Using AppTranslationKeysMap as TYPE is the JUMP OF THE CAT
 export const enUs: AppTranslationKeysMap = {
@@ -81,6 +82,9 @@ export const enUs: AppTranslationKeysMap = {
       title: 'My organizations',
       description: 'My organizations data',
     },
+  },
+  models: {
+    chai,
   },
 };
 

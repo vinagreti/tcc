@@ -21,7 +21,7 @@
         *ngFor="let comparisonType of comparisonTypes"
         [value]="comparisonType"
       >
-        {{ comparisonType }}
+        {{ i18n.trans.models.chai[comparisonType] }}
       </option>
     </select>
   </div>

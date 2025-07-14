@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TestFlow, TestStep } from '../../../../../../models/test-flow.model';
+import { TestFlow, TestStep } from '@/models/shared';
 import { FormsModule } from '@angular/forms';
 import { TestsetFormStepsComponent } from '../testset-form-steps/testset-form-steps.component';
 
