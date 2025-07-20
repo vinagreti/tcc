@@ -124,9 +124,9 @@
             </span>
           </div>
           <div>
-            {{ i18n.trans.app.labels.status }}: {{ testError.response.status }}
+            {{ i18n.trans.app.labels.status }}: {{ testError.response?.status }}
           </div>
-          <code [innerHTML]="safeHtml(testError.body.error)"></code>
+          <code [innerHTML]="safeHtml(testError.body?.error)"></code>
         </div>
       } @else {
         @switch (running$ | async) {
